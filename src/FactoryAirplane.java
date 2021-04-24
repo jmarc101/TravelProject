@@ -6,7 +6,7 @@ public class FactoryAirplane implements FactoryVehicle {
 
 	private static FactoryAirplane instance;
 	private int vehicleID = 1;
-	private int routeID = 1;
+;
 
 	private FactoryAirplane() {
 	}
@@ -36,8 +36,8 @@ public class FactoryAirplane implements FactoryVehicle {
 	 * @param company
 	 * @param vehicle
 	 */
-	public Route createRoute( String startHubID, String endHubID, LocalDate startDate, LocalDate endDate, Company company, Vehicle vehicle) {
-		return new Route(String.valueOf(this.routeID++), startHubID, endHubID, startDate, endDate, company, vehicle);
+	public Route createRoute( String startHubID, String endHubID, String startDate, String endDate, Company company, Vehicle vehicle) {
+		return new Route(company.useRouteID(), startHubID, endHubID, startDate, endDate, company, vehicle);
 	}
 
 	/**

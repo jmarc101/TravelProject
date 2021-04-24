@@ -30,7 +30,7 @@ public class ClientIVisitor implements IVisitor {
 		}
 
 		String flight = route.getStartHubID() + "-" + route.getEndHubID() + ":[" + route.getCompanyID().getName() + "]" +
-				route.getCompanyID().getCompanyID() + "00" + route.getRouteID() + "(" + route.getDateDebut() + "-" + route.getDateFin()
+				route.getRouteID() + "(" + route.getDateDebut() + "-" + route.getDateFin()
 				+ ")";
 		for (int i = 0; i < sectionReserved.length; i++) {
 			sectionSplit[i] = flight + "|" + sectionID[i] + "(" + sectionReserved[i] + "/" + sectionMax[i] + ")" + sectionPrice[i] ;

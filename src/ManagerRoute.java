@@ -10,7 +10,6 @@ public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 	}
 
 	/**
-	 * 
 	 * @param e
 	 */
 	public void insert(TravelEntity e) {
@@ -18,18 +17,16 @@ public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 	}
 
 	/**
-	 * 
 	 * @param id
 	 */
 	public TravelEntity read(String id) {
-		for (Route route : listRoutes){
+		for (Route route : listRoutes) {
 			if (route.getRouteID().equals(id)) return route;
 		}
 		return null;
 	}
 
 	/**
-	 * 
 	 * @param e
 	 */
 	public void update(TravelEntity e) {
@@ -45,7 +42,6 @@ public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 	}
 
 	/**
-	 * 
 	 * @param id
 	 */
 	public void delete(String id) {
@@ -53,13 +49,16 @@ public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 
 	}
 
+	public ArrayList<Route> getListRoutes() {
+		return listRoutes;
+	}
+
 	public Iterator createIterator() {
-		// TODO - implement ManagerRoute.createIterator
-		throw new UnsupportedOperationException();
+		Iterator iter = new ManagerIterator(this, listRoutes);
+		return iter;
 	}
 
 	/**
-	 * 
 	 * @param companyID
 	 */
 	public ArrayList<Route> getRoutesByCompany(String companyID) {
@@ -68,7 +67,6 @@ public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 	}
 
 	/**
-	 * 
 	 * @param startHubID
 	 * @param endHubID
 	 */
@@ -78,12 +76,10 @@ public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 	}
 
 	/**
-	 * 
 	 * @param date
 	 */
 	public ArrayList<Route> getRoutesByDate(Date date) {
 		// TODO - implement ManagerRoute.getRoutesByDate
 		throw new UnsupportedOperationException();
 	}
-
 }

@@ -2,7 +2,7 @@ public interface Iterator {
 
 	void next();
 
-	Iterable currentItem();
+	TravelEntity currentItem();
 
 	void firstItem();
 

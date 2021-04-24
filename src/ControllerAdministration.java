@@ -12,6 +12,7 @@ public class ControllerAdministration extends Controller {
 	EntityManager vehicleManager;
 	EntityManager companyManager;
 	EntityManager routeManager;
+	Iterable routeIter;
 
 	public ControllerAdministration() {
 		airplaneFactory = FactoryAirplane.getInstance();
@@ -22,6 +23,7 @@ public class ControllerAdministration extends Controller {
 		vehicleManager = new ManagerVehicle();
 		companyManager = new ManagerCompany();
 		routeManager = new ManagerRoute();
+		routeIter = (Iterable) routeManager;
 	}
 
 	/**
@@ -48,7 +50,7 @@ public class ControllerAdministration extends Controller {
 	 * @param company
 	 * @param vehicle
 	 */
-	public void createRoute(String startHubID, String endHubID, LocalDate startDate, LocalDate endDate, Company company, Vehicle vehicle) {
+	public void createRoute(String startHubID, String endHubID, String startDate, String endDate, Company company, Vehicle vehicle) {
 
 		routeManager.insert(airplaneFactory.createRoute(startHubID, endHubID, startDate, endDate, company, vehicle));
 
@@ -70,24 +72,13 @@ public class ControllerAdministration extends Controller {
 
 	/**
 	 * 
-	 * @param sections
-	 */
-	public Vehicle createVehicle(ArrayList<Section> sections) {
-		if (sections.get(0) instanceof SectionPlane){
-			return airplaneFactory.createVehicle(sections);
-		}
-
-		return  null;
-	}
-
-	/**
-	 * 
 	 * @param route
 	 */
 	public void visit(Route route) {
-		// TODO - implement ControllerAdministration.visit
-		throw new UnsupportedOperationException();
+		iVisitor.visit(route);
 	}
+
+
 
 
 }

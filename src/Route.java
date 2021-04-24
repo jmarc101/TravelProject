@@ -8,15 +8,15 @@ public class Route extends TravelEntity implements IVisitable, ISubject {
 	private String routeID;
 	private String startHubID;
 	private String endHubID;
-	private LocalDate dateDebut;
-	private LocalDate dateFin;
+	private String dateDebut;
+	private String dateFin;
 	private Company company;
 	private double price;
 	private String duration;
 	private Vehicle vehicle;
 
 
-	public Route(String routeID, String startHubID, String endHubID, LocalDate dateDebut, LocalDate dateFin, Company company, Vehicle vehicle) {
+	public Route(String routeID, String startHubID, String endHubID, String dateDebut, String dateFin, Company company, Vehicle vehicle) {
 		this.routeID = routeID;
 		this.startHubID = startHubID;
 		this.endHubID = endHubID;
@@ -54,19 +54,19 @@ public class Route extends TravelEntity implements IVisitable, ISubject {
 		this.endHubID = endHubID;
 	}
 
-	public LocalDate getDateDebut() {
+	public String getDateDebut() {
 		return dateDebut;
 	}
 
-	public void setDateDebut(LocalDate dateDebut) {
+	public void setDateDebut(String dateDebut) {
 		this.dateDebut = dateDebut;
 	}
 
-	public LocalDate getDateFin() {
+	public String getDateFin() {
 		return dateFin;
 	}
 
-	public void setDateFin(LocalDate dateFin) {
+	public void setDateFin(String dateFin) {
 		this.dateFin = dateFin;
 	}
 

@@ -54,6 +54,24 @@ public class ManagerCompany implements EntityManager, Iterable {
 		return null;
 	}
 
+	public void iterateCompanies(String type){
+		switch (type){
+			case "air":
+				for (Company company : listCompany)
+					if (company instanceof CompanyAir) company.toStrings();
+				break;
+			case "naval":
+				for (Company company : listCompany)
+					if (company instanceof CompanyNaval) company.toStrings();
+				break;
+			case "train":
+				for (Company company : listCompany)
+					if (company instanceof CompanyTrain) company.toStrings();
+					break;
+			}
+
+	}
+
 	public Iterator createIterator() {
 		// TODO - implement ManagerCompany.createIterator
 		throw new UnsupportedOperationException();

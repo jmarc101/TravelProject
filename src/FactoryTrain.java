@@ -21,7 +21,7 @@ public class FactoryTrain implements FactoryVehicle {
 	}
 
 	@Override
-	public Route createRoute( String startHubID, String endHubID, LocalDate startDate, LocalDate endDate, Company company, Vehicle vehicle) {
+	public Route createRoute( String startHubID, String endHubID, String startDate, String endDate, Company company, Vehicle vehicle) {
 		return new Route(String.valueOf(this.routeID++), startHubID, endHubID, startDate, endDate, company, vehicle);
 	}
 

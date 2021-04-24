@@ -1,25 +1,31 @@
+import java.util.ArrayList;
+
 public class ManagerIterator implements Iterator {
 
-	private TravelEntity e;
+	Iterable iterable;
+	ArrayList<Route> list;
+	int index = 0;
 
-	public void next() {
-		// TODO - implement ManagerIterator.next
-		throw new UnsupportedOperationException();
+	public ManagerIterator(Iterable iterable, ArrayList<Route> list) {
+		this.iterable = iterable;
+		this.list = list;
 	}
 
-	public Iterable currentItem() {
-		// TODO - implement ManagerIterator.currentItem
-		throw new UnsupportedOperationException();
+
+	public void next() {
+		index++;
+	}
+
+	public TravelEntity currentItem() {
+		return list.get(index);
 	}
 
 	public void firstItem() {
-		// TODO - implement ManagerIterator.firstItem
-		throw new UnsupportedOperationException();
+		index = 0;
 	}
 
 	public boolean isDone() {
-		// TODO - implement ManagerIterator.isDone
-		throw new UnsupportedOperationException();
+		return (list.size() == 0 || index >= list.size());
 	}
 
 }

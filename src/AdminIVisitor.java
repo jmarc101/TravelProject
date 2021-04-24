@@ -27,7 +27,7 @@ public class AdminIVisitor implements IVisitor {
 			sectionSplit[i] = "|" + sectionID[i] + "(" + sectionReserved[i] + "/" + sectionMax[i] + ")" + sectionPrice[i] ;
 		}
 		String flight = route.getStartHubID() + "-" + route.getEndHubID() + ":[" + route.getCompanyID().getName() + "]" +
-				route.getCompanyID().getCompanyID() + "00" + route.getRouteID() + "(" + route.getDateDebut() + "-" + route.getDateFin()
+				 route.getRouteID() + "(" + route.getDateDebut() + "-" + route.getDateFin()
 				+ ")";
 
 		String together = "";
