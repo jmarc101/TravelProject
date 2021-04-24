@@ -6,7 +6,7 @@ public class TransitHubTrainStation extends TransitHub {
     @Override
     public void toStrings() {
         System.out.println("Train Station");
-        System.out.println("ID : " + getHubID());
-        System.out.printf("Town : " + getTown());
+        System.out.print("|ID : " + getHubID());
+        System.out.print("|Town : " + getTown());
     }
 }

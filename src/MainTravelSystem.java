@@ -25,25 +25,13 @@ public class MainTravelSystem {
 		Company airCanada = airFact.createCompany("AC", "AIRCAN", "555 rue des avions", 500);
 		TransitHub airportMontreal = airFact.createTransitHub("YUL", "Montreal");
 		TransitHub airportToronto = airFact.createTransitHub("YYZ", "Toronto");
-		Class firstClass = new ClassFirst(50);
-		Class premium = new ClassPremium(100);
-		Section firstSection = new SectionPlane(firstClass, 100);
-		Section premiumSection = new SectionPlane(premium, 100);
-		ArrayList<Section> sects = new ArrayList<>();
-		sects.add(firstSection);
-		sects.add(premiumSection);
-		Vehicle airplane = controllerAdministration.createVehicle(sects);
 
-		controllerAdministration.vehicleManager.insert(airplane);
+		airCanada.getVehicle(0).toStrings();
 		controllerAdministration.companyManager.insert(airCanada);
 		controllerAdministration.hubManager.insert(airportMontreal);
 		controllerAdministration.hubManager.insert(airportToronto);
-		controllerAdministration.createRoute("YUL", "YYZ", LocalDate.now(), LocalDate.now(), airCanada, airplane );
-		Route route = (Route)controllerAdministration.routeManager.read("1");
-		IVisitor visitor = new AdminIVisitor();
-		visitor.visit(route);
-		IVisitor visitor1 = new ClientIVisitor();
-		visitor1.visit(route, 'F');
+
+
 
 
 		View view = new View(controllerAdministration);

@@ -10,6 +10,15 @@ public abstract class Vehicle extends TravelEntity {
 	public Vehicle(String vehicleID, ArrayList<Section> sections) {
 		this.vehicleID = vehicleID;
 		this.sections = sections;
+		setMaxCapacity();
+	}
+
+	public void setMaxCapacity(){
+		int total = 0;
+		for (Section section : sections){
+			total += section.sectionClass.getMaxCapacity();
+		}
+		maxCapacity = total;
 	}
 
 	public String getVehicleID() {
@@ -35,6 +44,8 @@ public abstract class Vehicle extends TravelEntity {
 	public void setSections(ArrayList<Section> sections) {
 		this.sections = sections;
 	}
+
+	public void toStrings(){};
 
 	/**
 	 * 

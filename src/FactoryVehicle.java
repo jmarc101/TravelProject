@@ -22,7 +22,7 @@ public abstract interface FactoryVehicle {
 	 * @param company
 	 * @param vehicle
 	 */
-	abstract Route createRoute(String startHubID, String endHubID, LocalDate startDate, LocalDate endDate, Company company, Vehicle vehicle);
+	abstract Route createRoute(String startHubID, String endHubID, String startDate, String endDate, Company company, Vehicle vehicle);
 
 	/**
 	 * 

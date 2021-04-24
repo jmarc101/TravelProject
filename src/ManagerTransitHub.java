@@ -43,6 +43,24 @@ public class ManagerTransitHub implements EntityManager, Iterable {
 		listTransitHubs.set(index, transitHub);
 	}
 
+	public void iterateHubs(String type){
+		switch (type){
+			case "air":
+				for (TransitHub transitHub : listTransitHubs)
+					if (transitHub instanceof TransitHubAirport) transitHub.toStrings();
+				break;
+			case "naval":
+				for (TransitHub transitHub : listTransitHubs)
+					if (transitHub instanceof TransitHubPort) transitHub.toStrings();
+				break;
+			case "train":
+				for (TransitHub transitHub : listTransitHubs)
+					if (transitHub instanceof TransitHubTrainStation) transitHub.toStrings();
+				break;
+		}
+
+	}
+
 	/**
 	 * 
 	 * @param id

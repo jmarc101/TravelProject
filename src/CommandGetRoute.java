@@ -6,8 +6,15 @@ public class CommandGetRoute extends Command {
 	}
 
 	public void execute() {
-		// TODO - implement GetRouteCommand.execute
-		throw new UnsupportedOperationException();
+		System.out.println("\nViewing Route info\n");
+		String id = getView().listen("Enter route ID: ");
+		Route route = (Route) getController().routeManager.read(id);
+		if (route == null){
+			System.out.println("Invalid ID");
+			return;
+		}
+		getController().visit(route);
+
 	}
 
 	public void unexecute() {

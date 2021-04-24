@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class Company extends TravelEntity {
 
 	private String companyID;
@@ -5,27 +7,17 @@ public abstract class Company extends TravelEntity {
 	private String headquarterAddress;
 	private double farePrice;
 
-
-	private int routeID;
-
 	public Company(String companyID, String name, String headquarterAddress, double farePrice) {
 		this.companyID = companyID;
 		this.name = name;
 		this.headquarterAddress = headquarterAddress;
 		this.farePrice = farePrice;
-		routeID = 0;
-	}
-
-	public int getRouteID() {
-		return routeID;
-	}
-
-	public void augmentID(int routeID) {
-		this.routeID++;
 	}
 
 
+	public abstract Vehicle getVehicle(int index);
 
+	public abstract void createVehicle();
 
 	public String getCompanyID() {
 		return companyID;
@@ -60,6 +52,16 @@ public abstract class Company extends TravelEntity {
 	}
 
 	public abstract void toStrings();
+
+	public abstract void getVehiclesStrings();
+
+	public String useRouteID() {
+		return null;
+	}
+
+	public String getRouteID() {
+		return null;
+	}
 
 
 
