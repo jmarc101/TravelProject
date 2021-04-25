@@ -5,21 +5,33 @@ public abstract class Section extends TravelEntity {
 	protected Class sectionClass;
 	ArrayList<Seat> seats;
 	double companyPrice;
-	int id = 0;
 
 	public Section(Class sectionClass, double companyPrice) {
 		this.sectionClass = sectionClass;
 		this.companyPrice = companyPrice;
 		seats = new ArrayList<>();
 
-		int numSeats = sectionClass.getMaxCapacity();
+		createSeat();
 
-		for (int i = 0; i < numSeats; i++) {
-			addSeat(new SeatNarrow(String.valueOf(++id), companyPrice, sectionClass.getId(), 1));
-		}
 	}
 
 
+	private void createSeat(){
+		int numSeats = sectionClass.getMaxCapacity();
+		int numCol = 6;
+		int seatPerCol = numSeats / 6;
+		int extraSeat = numSeats % 6;
+
+		for (int i = 1; i <= numCol; i++) {
+			for (int j = 1; j <=seatPerCol ; j++) {
+				addSeat(new SeatMedium(companyPrice, sectionClass.getId(), i, j));
+			}
+		}
+		for (int i = 0; i < extraSeat; i++) {
+			addSeat(new SeatMedium(companyPrice,sectionClass.getId(),7,i));
+		}
+
+	}
 
 	public ArrayList<Seat> getSeats() {
 		return seats;

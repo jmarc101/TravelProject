@@ -7,7 +7,6 @@ public class CompanyTrain extends Company {
 
     public CompanyTrain(String companyID, String name, String headquarterAddress, double farePrice) {
         super(companyID, name, headquarterAddress, farePrice);
-
         createVehicle();
     }
 
@@ -19,21 +18,16 @@ public class CompanyTrain extends Company {
 
     @Override
     public void toStrings() {
-        System.out.println("Train Company");
-        System.out.print("|ID : " + getCompanyID());
-        System.out.print("|Name : " +getName());
-        System.out.print("|Address : " + getHeadquarterAddress());
-        System.out.print("|FarePrice : " + getFarePrice());
+        System.out.println("Train Company" + "|ID : " + getCompanyID() + "|Name : " +
+                getName() + "|Address : " + getHeadquarterAddress() + "|FarePrice : " + getFarePrice());
     }
 
     public String useRouteID() {
-        String route = getCompanyID() + "00" + routeID++;
-        return route;
+        return getCompanyID() + "00" + routeID++;
     }
 
     public String getRouteID() {
-        String route = getCompanyID() + "00" + routeID;
-        return route;
+        return getCompanyID() + "00" + routeID;
     }
 
     public void getVehiclesStrings(){

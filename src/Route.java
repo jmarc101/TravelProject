@@ -101,6 +101,10 @@ public class Route extends TravelEntity implements IVisitable, ISubject {
 	public void setVehicle(Vehicle vehicle) {
 		this.vehicle = vehicle;
 	}
+	
+	public ArrayList<Seat> getSeats(){
+		return this.vehicle.getSeats();
+	}
 
 
 	/**

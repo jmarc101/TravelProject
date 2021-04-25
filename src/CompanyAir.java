@@ -20,16 +20,13 @@ public class CompanyAir extends Company {
 
     @Override
     public void toStrings() {
-        System.out.println("Air Company");
-        System.out.print("|ID : " + getCompanyID());
-        System.out.print("|Name : " +getName());
-        System.out.print("|Address : " + getHeadquarterAddress());
-        System.out.print("|FarePrice : " + getFarePrice());
+        System.out.println("Air Company" + "|ID : " + getCompanyID() + "|Name : " +
+                getName() + "|Address : " + getHeadquarterAddress() + "|FarePrice : " + getFarePrice());
     }
 
     public String useRouteID() {
-        String route = getCompanyID() + "00" + routeID++;
-        return route;
+
+        return getCompanyID() + "00" + routeID++;
     }
 
     public void getVehiclesStrings(){
@@ -39,8 +36,8 @@ public class CompanyAir extends Company {
     }
 
     public String getRouteID() {
-        String route = getCompanyID() + "00" + routeID;
-        return route;
+
+        return getCompanyID() + "00" + routeID;
     }
 
     public ArrayList<Vehicle> getVehicles() {

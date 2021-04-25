@@ -1,5 +1,3 @@
-import javax.swing.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,7 +17,7 @@ public class View implements IObserver {
         String username = listen("Please Enter Username ");
         String password = listen("Please Enter Password ");
 
-        User user = (User) controller.userManager.read(username);
+        this.user = (User) controller.userManager.read(username);
         if (user == null) {
             System.out.println("\nWrong Username");
             return false;
@@ -32,19 +30,10 @@ public class View implements IObserver {
         return true;
     }
 
-    public int displayMenu() {
-        int result = 0;
-        System.out.println("\n\nWelcome to travel reservation App\nPlease choose which type of user\n\n" +
-                "Admin: 1\n" +
-                "Client: 2\nCreate User: 3");
-        try {
-            result = Integer.parseInt(listen(""));
-        } catch (Exception e){
-            System.out.println("Wrong answer\n\n\n\n\n\n");
-            displayMenu();
-        }
+    public String displayMenu() {
 
-        return result;
+            System.out.println("\n\n *** Travel Reservation Application ***\nPlease enter which type of access\n'admin'\n'client'\n'create user'");
+            return listen("\n");
     }
 
     public Controller getController() {
@@ -56,13 +45,6 @@ public class View implements IObserver {
         System.out.print(message + ">>>");
         return scan.nextLine();
     }
-
-
-    public void displayRoutes() {
-        // TODO - implement View.displayRoutes
-        throw new UnsupportedOperationException();
-    }
-
 
 
     public ArrayList<String> getUserInfo() {
@@ -82,12 +64,15 @@ public class View implements IObserver {
         return userInfo;
     }
 
+    @Override
+    public void update() {
+    }
+
     public User getUser() {
         return user;
     }
 
-    @Override
-    public void update() {
-
+    public void setUser(User user) {
+        this.user = user;
     }
 }

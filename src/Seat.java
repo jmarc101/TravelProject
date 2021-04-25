@@ -7,13 +7,34 @@ public abstract class Seat extends TravelEntity {
 	private String clientID;
 	private IState IState;
 	private char sectionID;
+	private int column;
+	private int number;
 
-	public Seat(String seatID, double price, char sectionID) {
-		this.seatID = seatID;
+
+	public Seat(double price, char sectionID, int column, int number) {
+		this.seatID = "C" + column + "|N" + number;
 		this.price = price;
 		this.sectionID = sectionID;
+		this.column = column;
+		this.number = number;
 
 		IState = new StateAvailable();
+	}
+
+	public int getColumn() {
+		return column;
+	}
+
+	public void setColumn(int column) {
+		this.column = column;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 	public String getSeatID() {
@@ -90,4 +111,11 @@ public abstract class Seat extends TravelEntity {
 		return IState.isAvailable();
 	}
 
+	public IState getIState() {
+		return IState;
+	}
+
+	public void setIState(IState IState) {
+		this.IState = IState;
+	}
 }

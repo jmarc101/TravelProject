@@ -1,6 +1,3 @@
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 
 public abstract interface FactoryVehicle {
 
@@ -30,11 +27,5 @@ public abstract interface FactoryVehicle {
 	 * @param town
 	 */
 	abstract TransitHub createTransitHub(String id, String town);
-
-	/**
-	 * 
-	 * @param sections
-	 */
-	abstract Vehicle createVehicle(ArrayList<Section> sections);
 
 }

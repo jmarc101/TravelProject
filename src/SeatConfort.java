@@ -1,11 +1,6 @@
 public class SeatConfort extends Seat {
 
-	public SeatConfort(String seatID, double price, char sectionID, int column) {
-		super(seatID, price, sectionID);
-		this.column = column;
+	public SeatConfort(double price, char sectionID, int column, int number) {
+		super(price, sectionID, column, number);
 	}
-
-	private int column;
-	private int number;
-
 }

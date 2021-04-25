@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 public class CommandAllRoutes extends Command
 {
@@ -8,14 +7,24 @@ public class CommandAllRoutes extends Command
 
     @Override
     public void execute() {
-        Iterator iterator = getController().routeIter.createIterator();
 
-        while(!iterator.isDone()){
-
-            Route route = (Route) iterator.currentItem();
-            if (route == null) return;
-            getController().visit(route);
-            iterator.next();
+        System.out.println("**** Airplane Routes ****");
+        for (Route route : getController().getAllRoutes()) {
+            if (route.getVehicle() instanceof VehicleAirplane) {
+                getController().visit(route);
+            }
+        }
+        System.out.println("**** Train Routes ****");
+        for (Route route : getController().getAllRoutes()) {
+            if (route.getVehicle() instanceof VehicleTrain) {
+                getController().visit(route);
+            }
+        }
+        System.out.println("**** Boat Routes ****");
+        for (Route route : getController().getAllRoutes()) {
+            if (route.getVehicle() instanceof VehicleBoat) {
+                getController().visit(route);
+            }
         }
     }
 

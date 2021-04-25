@@ -1,11 +1,8 @@
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class FactoryAirplane implements FactoryVehicle {
 
 	private static FactoryAirplane instance;
-	private int vehicleID = 1;
+
 ;
 
 	private FactoryAirplane() {
@@ -51,12 +48,5 @@ public class FactoryAirplane implements FactoryVehicle {
 
 	}
 
-	/**
-	 * 
-	 * @param sections
-	 */
-	public Vehicle createVehicle(ArrayList<Section> sections) {
-		return new VehicleAirplane(String.valueOf(vehicleID++), sections);
-	}
 
 }

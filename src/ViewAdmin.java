@@ -34,7 +34,7 @@ public class ViewAdmin extends View{
     }
 
     @Override
-    public int displayMenu(){
+    public String displayMenu(){
 
         System.out.println("\n\nWelcome to Admin Control Panel\nPlease choose an options below\n");
         System.out.println("--Route Options COMMANDS--\n'get route'\n'create route'\n'modify route'\n'delete route'");
@@ -42,26 +42,16 @@ public class ViewAdmin extends View{
         System.out.println("--Hub options COMMANDS--\n'get hub'\n'create hub'\n'modify hub'\n'delete hub'\n\nVIEW ALL ROUTES: 'all routes'\nEXIT : '-1'");
 
         boolean run = true;
+        String result = "";
         while (run) {
-            String result = "";
-
-
 
             result = listen("\n*** Enter Admin Menu Choice (CRUD) ***\n");
-            System.out.println(result);
+
             if (commands.containsKey(result)) commands.get(result).execute();
             else if (result.equals("-1")) run = false;
-            else {
-                System.out.println("Invalid choice\nPlease choose again");
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-
-                } catch (Exception e) {
-
-                }
-            }
+            else System.out.println("Invalid choice\nPlease choose again");
         }
-        return 2;
+        return result;
     }
 
     public ArrayList<String> getCompanyInfo(){

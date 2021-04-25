@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class SeatCabin extends Seat {
 
-	public SeatCabin(String seatID, double price, char sectionID) {
-		super(seatID, price, sectionID);
+	public SeatCabin(double price, char sectionID) {
+		super(price, sectionID,1,1);
 	}
 
 	public ArrayList<String> getListClients() {

@@ -1,16 +1,24 @@
+import java.util.ArrayList;
+
 public class ControllerClient extends Controller {
 
-	private IVisitor IVisitor;
+	private IVisitor iVisitor;
 
 	EntityManager paymentManager;;
 	EntityManager reservationManager;
 	EntityManager routeManager;
+	Iterable routeIter;
+	IRoutes router;
 
 	public ControllerClient() {
 		super();
 		paymentManager = new ManagerPayment();
 		reservationManager = new ManagerReservation();
-		routeManager = new ManagerRoute();
+		routeManager = ManagerRoute.getInstance();
+		routeIter = (Iterable) routeManager;
+		iVisitor = new ClientIVisitor();
+		router = (IRoutes) routeManager;
+
 	}
 
 
@@ -58,9 +66,39 @@ public class ControllerClient extends Controller {
 	 *
 	 * @param route
 	 */
-	public void visit(Route route) {
-		// TODO - implement ControllerClient.visit
-		throw new UnsupportedOperationException();
+	public void visit(Route route, char classID) {
+		iVisitor.visit(route, classID);
 	}
 
+	public ArrayList<Route> getRoutesByHub(String vehicleType, char section, String startHubID, String endHubID){
+		return router.getRoutesByHub(vehicleType, section, startHubID, endHubID);
+	}
+
+	public ArrayList<Route> getRoutesByDate(String vehicleType, char section, String date){
+		return router.getRoutesByDate(vehicleType,section,date);
+	}
+
+	public ArrayList<Route> getAllRoutes(){
+		return router.getAllRoutes();
+	}
+
+	public IVisitor getIVisitor() {
+		return iVisitor;
+	}
+
+	public EntityManager getPaymentManager() {
+		return paymentManager;
+	}
+
+	public EntityManager getReservationManager() {
+		return reservationManager;
+	}
+
+	public EntityManager getRouteManager() {
+		return routeManager;
+	}
+
+	public Iterable getRouteIter() {
+		return routeIter;
+	}
 }

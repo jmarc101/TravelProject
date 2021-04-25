@@ -41,6 +41,15 @@ public abstract class Vehicle extends TravelEntity {
 		return sections;
 	}
 
+	public ArrayList<Seat> getSeats(){
+		ArrayList<Seat> list = new ArrayList<>();
+		for (Section section : sections){
+			list.addAll(section.seats);
+		}
+
+		return list;
+	}
+
 	public void setSections(ArrayList<Section> sections) {
 		this.sections = sections;
 	}

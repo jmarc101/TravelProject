@@ -6,6 +6,8 @@ public class ManagerCompany implements EntityManager, Iterable {
 
 	public ManagerCompany() {
 		this.listCompany = new ArrayList<>();
+
+
 	}
 
 	/**

@@ -14,11 +14,8 @@ public class CompanyNaval extends Company {
 
     @Override
     public void toStrings() {
-        System.out.println("Naval Company");
-        System.out.print("|ID : " + getCompanyID());
-        System.out.print("|Name : " +getName());
-        System.out.print("|Address : " + getHeadquarterAddress());
-        System.out.print("|FarePrice : " + getFarePrice());
+        System.out.println("Naval Company" + "|ID : " + getCompanyID() + "|Name : " +
+                getName() + "|Address : " + getHeadquarterAddress() + "|FarePrice : " + getFarePrice());
     }
 
     public String useRouteID() {

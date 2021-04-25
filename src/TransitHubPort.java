@@ -5,8 +5,7 @@ public class TransitHubPort extends TransitHub {
 
     @Override
     public void toStrings() {
-        System.out.println("Naval Port");
-        System.out.print("|ID : " + getHubID());
-        System.out.print("|Town : " + getTown());
+        System.out.println("Naval Port|ID : " + getHubID()+"|Town : " + getTown());
+
     }
 }

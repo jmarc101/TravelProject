@@ -1,10 +1,5 @@
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class FactoryBoat implements FactoryVehicle {
-
-	int routeID = 1;
 
 	private static FactoryBoat instance;
 
@@ -25,7 +20,7 @@ public class FactoryBoat implements FactoryVehicle {
 
 
 	public Route createRoute( String startHubID, String endHubID, String startDate, String endDate, Company company, Vehicle vehicle) {
-		return new Route(String.valueOf(this.routeID++), startHubID, endHubID, startDate, endDate, company, vehicle);
+		return new Route(company.useRouteID(), startHubID, endHubID, startDate, endDate, company, vehicle);
 
 	}
 
@@ -35,8 +30,4 @@ public class FactoryBoat implements FactoryVehicle {
 
 	}
 
-	@Override
-	public Vehicle createVehicle(ArrayList<Section> sections) {
-		return null;
-	}
 }

@@ -1,12 +1,19 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 
-	private ArrayList<Route> listRoutes;
+	private ArrayList<Route> listRoutes = new ArrayList<>();
+	private static ManagerRoute instance;
 
-	public ManagerRoute() {
-		listRoutes = new ArrayList<>();
+	private ManagerRoute() {
+	}
+
+
+	public static ManagerRoute getInstance() {
+		if (instance == null) instance = new ManagerRoute();
+		return instance;
 	}
 
 	/**
@@ -49,7 +56,8 @@ public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 
 	}
 
-	public ArrayList<Route> getListRoutes() {
+	public ArrayList<Route> getAllRoutes() {
+
 		return listRoutes;
 	}
 
@@ -58,28 +66,56 @@ public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 		return iter;
 	}
 
-	/**
-	 * @param companyID
-	 */
-	public ArrayList<Route> getRoutesByCompany(String companyID) {
-		// TODO - implement ManagerRoute.getRoutesByCompany
-		throw new UnsupportedOperationException();
+
+	@Override
+	public ArrayList<Route> getRoutesByHub(String vehicleType, char section, String startHubID, String endHubID) {
+		ArrayList<Route> list = new ArrayList<>();
+
+		for (Route route : listRoutes) {
+			if ((route.getStartHubID().equals(startHubID) && route.getEndHubID().equals(endHubID))) {
+
+				switch (vehicleType) {
+					case "airplane" -> {
+						if (route.getVehicle() instanceof VehicleAirplane)
+							list.add(route);
+					}
+					case "boat" -> {
+						if (route.getVehicle() instanceof VehicleBoat)
+							list.add(route);
+					}
+					case "train" -> {
+						if (route.getVehicle() instanceof VehicleTrain)
+							list.add(route);
+					}
+				}
+			}
+		}
+
+
+		return list;
 	}
 
-	/**
-	 * @param startHubID
-	 * @param endHubID
-	 */
-	public ArrayList<Route> getRoutesByHub(String startHubID, String endHubID) {
-		// TODO - implement ManagerRoute.getRoutesByHub
-		throw new UnsupportedOperationException();
+	@Override
+	public ArrayList<Route> getRoutesByDate(String vehicleType, char section, String date) {
+
+		ArrayList<Route> list = new ArrayList<>();
+
+		for (Route route : listRoutes){
+
+			switch (vehicleType){
+				case "airplane" -> { if (route.getVehicle() instanceof VehicleAirplane && extractDate(date, route.getDateDebut()))
+					list.add(route);}
+				case "boat" -> {if (route.getVehicle() instanceof VehicleBoat && extractDate(date, route.getDateDebut()))
+					list.add(route);}
+				case "train" -> {if (route.getVehicle() instanceof VehicleTrain && extractDate(date, route.getDateDebut()))
+					list.add(route);}
+			}
+		}
+		return list;
+	}
+	public boolean extractDate(String dateWanted, String dateRoute){
+		if (dateWanted.length()<9) return false;
+		return dateRoute.substring(0, 9).equals(dateWanted.substring(0, 9));
 	}
 
-	/**
-	 * @param date
-	 */
-	public ArrayList<Route> getRoutesByDate(Date date) {
-		// TODO - implement ManagerRoute.getRoutesByDate
-		throw new UnsupportedOperationException();
-	}
 }

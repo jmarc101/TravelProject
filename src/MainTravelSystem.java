@@ -1,6 +1,4 @@
-import javax.swing.*;
-import java.awt.*;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 
 public class MainTravelSystem {
@@ -19,33 +17,31 @@ public class MainTravelSystem {
 		controllerAdministration = new ControllerAdministration();
 		ViewAdmin viewAdmin = new ViewAdmin(controllerAdministration);
 		ViewClient viewClient = new ViewClient(controllerClient);
-
-
-		FactoryAirplane airFact = FactoryAirplane.getInstance();
-		Company airCanada = airFact.createCompany("AC", "AIRCAN", "555 rue des avions", 500);
-		TransitHub airportMontreal = airFact.createTransitHub("YUL", "Montreal");
-		TransitHub airportToronto = airFact.createTransitHub("YYZ", "Toronto");
-
-		airCanada.getVehicle(0).toStrings();
-		controllerAdministration.companyManager.insert(airCanada);
-		controllerAdministration.hubManager.insert(airportMontreal);
-		controllerAdministration.hubManager.insert(airportToronto);
-
-
-
-
 		View view = new View(controllerAdministration);
-		int usertype = view.displayMenu();
-		if (usertype == 1) System.out.println("\n\nAdmin Login\nPrototype Admin: Username = admin - Password = 1234");
-		else if (usertype == 3) {
-			createUser(view);
-			view.displayMenu();
-		} else {
-			System.out.println("\n\nClient Login\nPrototype Client: Username = client - Password = 1234");
-		}
-		while (!view.login()){}
+		boolean run = true;
+		while(run){
 
-		if (usertype == 1) viewAdmin.displayMenu();
+			String usertype = view.displayMenu();
+			switch (usertype) {
+				case "-1" -> run = false;
+				case "admin" -> {
+					System.out.println("*** Admin Login ***\nDummy admin: Username = admin - Password = 1234");
+					while (!view.login());
+					viewAdmin.displayMenu();
+				}
+				case "client" -> {
+					System.out.println("*** Client Login ***\nDummy client: Username = client - Password = 1234");
+					while (!view.login());
+					viewClient.displayMenu();
+				}
+				case "create user" -> createUser(view);
+			}
+
+		}
+
+
+
+
 
 	}
 
