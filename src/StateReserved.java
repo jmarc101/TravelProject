@@ -1,4 +1,9 @@
 public class StateReserved implements IState {
+	Seat seat;
+
+	public StateReserved(Seat seat) {
+		this.seat = seat;
+	}
 
 	/**
 	 * 

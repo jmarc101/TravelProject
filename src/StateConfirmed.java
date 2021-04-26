@@ -1,4 +1,9 @@
 public class StateConfirmed implements IState {
+	Seat seat;
+
+	public StateConfirmed(Seat seat) {
+		this.seat = seat;
+	}
 
 	/**
 	 * 

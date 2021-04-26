@@ -9,6 +9,11 @@ public class ManagerVehicle implements Iterable, EntityManager {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public ArrayList<TravelEntity> getList() {
+		return null;
+	}
+
 	public void insert(TravelEntity e) {
 
 		if (e instanceof User) listVehicle.add((Vehicle) e);

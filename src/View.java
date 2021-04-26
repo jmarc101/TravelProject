@@ -13,24 +13,24 @@ public class View implements IObserver {
 
     }
 
-    public boolean login(){
+    public User login(){
         String username = listen("Please Enter Username ");
         String password = listen("Please Enter Password ");
 
         this.user = (User) controller.userManager.read(username);
         if (user == null) {
             System.out.println("\nWrong Username");
-            return false;
+            return null;
         }
         if (!user.getPassword().equals(password)) {
             System.out.println("Wrong Password");
-            return false;
+            return null;
         }
         System.out.println("Login Successful");
-        return true;
+        return user;
     }
 
-    public String displayMenu() {
+    public String displayMenu(User user) {
 
             System.out.println("\n\n *** Travel Reservation Application ***\nPlease enter which type of access\n'admin'\n'client'\n'create user'");
             return listen("\n");

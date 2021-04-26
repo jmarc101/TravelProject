@@ -1,12 +1,10 @@
-import java.lang.reflect.Array;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 public class ViewAdmin extends View{
     ControllerAdministration controllerAdministration;
     HashMap<String, Command> commands;
+    User user;
 
     public ViewAdmin(ControllerAdministration controller) {
         super(controller);
@@ -34,8 +32,8 @@ public class ViewAdmin extends View{
     }
 
     @Override
-    public String displayMenu(){
-
+    public String displayMenu(User user){
+    this.user = user;
         System.out.println("\n\nWelcome to Admin Control Panel\nPlease choose an options below\n");
         System.out.println("--Route Options COMMANDS--\n'get route'\n'create route'\n'modify route'\n'delete route'");
         System.out.println("--Company Options COMMANDS--\n'get company'\n'create company'\n'modify company'\n'delete company'");

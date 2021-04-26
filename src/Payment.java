@@ -1,35 +1,21 @@
 public class Payment extends TravelEntity {
 
-	private String paymentID;
-	private String clientID;
-	private String seatID;
+	private String reservationID;
 	private double amount;
-	private Reservation reservation;
+	private CreditCard creditCard;
 
-
+	public Payment(String reservationID, CreditCard creditCard, double amount) {
+		this.reservationID = reservationID;
+		this.creditCard = creditCard;
+		this.amount = amount;
+	}
 
 	public String getPaymentID() {
-		return paymentID;
+		return reservationID;
 	}
 
 	public void setPaymentID(String paymentID) {
-		this.paymentID = paymentID;
-	}
-
-	public String getClientID() {
-		return clientID;
-	}
-
-	public void setClientID(String clientID) {
-		this.clientID = clientID;
-	}
-
-	public String getSeatID() {
-		return seatID;
-	}
-
-	public void setSeatID(String seatID) {
-		this.seatID = seatID;
+		this.reservationID = paymentID;
 	}
 
 	public double getAmount() {
@@ -40,27 +26,15 @@ public class Payment extends TravelEntity {
 		this.amount = amount;
 	}
 
-	public Reservation getReservation() {
-		return reservation;
+	public void toStrings(){
+		System.out.println("ResID: " + reservationID + "| Amount: " + amount);
+		creditCard.toStrings();
 	}
 
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
+	public boolean makePayment() {
+		// creditcard machine stuff with cc info
+		return true;
 	}
 
-
-	public Payment getPayment() {
-		// TODO - implement Payment.getPayment
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param ccINfo
-	 */
-	public boolean makePayment(String ccINfo) {
-		// TODO - implement Payment.makePaiement
-		throw new UnsupportedOperationException();
-	}
 
 }

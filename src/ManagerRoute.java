@@ -57,12 +57,11 @@ public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 	}
 
 	public ArrayList<Route> getAllRoutes() {
-
 		return listRoutes;
 	}
 
 	public Iterator createIterator() {
-		Iterator iter = new ManagerIterator(this, listRoutes);
+		Iterator iter = new ManagerIterator(this);
 		return iter;
 	}
 
@@ -118,4 +117,8 @@ public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 		return dateRoute.substring(0, 9).equals(dateWanted.substring(0, 9));
 	}
 
+	@Override
+	public ArrayList<TravelEntity> getList() {
+		return null;
+	}
 }

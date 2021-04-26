@@ -1,16 +1,10 @@
 public interface IReservation {
 
-	/**
-	 * 
-	 * @param clientID
-	 * @param seat
-	 */
-	boolean reserveSeat(String clientID, Seat seat);
+	boolean reserveSeat(String routeID, String clientID, String seat);;
 
-	/**
-	 * 
-	 * @param reservationID
-	 */
-	boolean paySeat(String reservationID);
+
+	Payment makePayment(String resId, CreditCard cc);
+
+	boolean refundPayment(double amount, CreditCard cc);
 
 }

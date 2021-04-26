@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class ManagerSeat implements EntityManager, Iterable {
+public class ManagerSeat implements EntityManager {
 
 	private ArrayList<Seat> listSeat;
 

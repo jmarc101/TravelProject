@@ -1,11 +1,15 @@
 import java.util.ArrayList;
 
-public class ManagerReservation implements EntityManager, IReservation, IPayment, Iterable {
+public class ManagerReservation implements EntityManager, IReservation, Iterable {
 
 	private ArrayList<Reservation> listReservations;
+	private ManagerRoute managerRoute;
+	private int reservationID = 1;
 
 	public ManagerReservation() {
+
 		listReservations = new ArrayList<>();
+		 managerRoute = ManagerRoute.getInstance();
 	}
 
 	/**
@@ -51,33 +55,40 @@ public class ManagerReservation implements EntityManager, IReservation, IPayment
 		return null;
 	}
 
-	/**
-	 * 
-	 * @param clientID
-	 * @param seat
-	 */
-	public boolean reserveSeat(String clientID, Seat seat) {
-		// TODO - implement ManagerReservation.reserveSeat
-		throw new UnsupportedOperationException();
+
+
+	@Override
+	public boolean reserveSeat(String routeID, String clientID, String seatID) {
+
+		Route route = (Route)managerRoute.read(routeID);
+		if (route == null){	return false;}
+		Seat seat = null;
+
+		for (Seat seat1 : route.getSeats()){
+			if (seat1.getSeatID().equals(seatID)){
+				seat = seat1;
+			}
+		}
+		if (seat == null){ return false; }
+		boolean reserved = seat.reserve(clientID);
+
+		if (reserved){
+			String resID = "r" + String.format("%8s",reservationID++).replace(' ', '0');
+			insert(new Reservation(resID, clientID,routeID,seatID, seat.getPrice()));
+			System.out.println("Reservation ID: "+ resID);
+
+		}
+		return reserved;
 	}
 
-	/**
-	 * 
-	 * @param reservationID
-	 */
-	public boolean paySeat(String reservationID) {
-		// TODO - implement ManagerReservation.paySeat
-		throw new UnsupportedOperationException();
-	}
 
-	/**
-	 * 
-	 * @param amount
-	 * @param cc
-	 */
-	public boolean makePayment(double amount, CreditCard cc) {
-		// TODO - implement ManagerReservation.makePayment
-		throw new UnsupportedOperationException();
+
+	public Payment makePayment(String resId, CreditCard cc) {
+		Reservation reservation = (Reservation) read(resId);
+		Payment payment = new Payment(resId, cc, reservation.getPrice());
+		if (!payment.makePayment()) return null;
+		reservation.setPayment(payment);
+		return payment;
 	}
 
 	/**
@@ -91,8 +102,16 @@ public class ManagerReservation implements EntityManager, IReservation, IPayment
 	}
 
 	public Iterator createIterator() {
-		// TODO - implement ManagerReservation.createIterator
-		throw new UnsupportedOperationException();
+		return new ManagerIterator(this);
+	}
+
+	@Override
+	public ArrayList<TravelEntity> getList() {
+		ArrayList<TravelEntity> list = new ArrayList<>();
+		for (Reservation reservation : listReservations){
+			list.add(reservation);
+		}
+		return list;
 	}
 
 }

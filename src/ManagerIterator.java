@@ -3,12 +3,12 @@ import java.util.ArrayList;
 public class ManagerIterator implements Iterator {
 
 	Iterable iterable;
-	ArrayList<Route> list;
+	ArrayList<TravelEntity> list;
 	int index = 0;
 
-	public ManagerIterator(Iterable iterable, ArrayList<Route> list) {
+	public ManagerIterator(Iterable iterable) {
 		this.iterable = iterable;
-		this.list = list;
+		this.list = iterable.getList();
 	}
 
 

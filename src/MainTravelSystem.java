@@ -5,6 +5,9 @@ public class MainTravelSystem {
 
 	static ControllerClient controllerClient;
 	static ControllerAdministration controllerAdministration;
+	static User user;
+
+
 
 
 	/**
@@ -17,22 +20,26 @@ public class MainTravelSystem {
 		controllerAdministration = new ControllerAdministration();
 		ViewAdmin viewAdmin = new ViewAdmin(controllerAdministration);
 		ViewClient viewClient = new ViewClient(controllerClient);
+
+
+		controllerClient.reservationManager.insert(new Reservation("r1", "client", "AB101","c02ksf", 100));
+
 		View view = new View(controllerAdministration);
 		boolean run = true;
 		while(run){
 
-			String usertype = view.displayMenu();
+			String usertype = view.displayMenu(user);
 			switch (usertype) {
 				case "-1" -> run = false;
 				case "admin" -> {
 					System.out.println("*** Admin Login ***\nDummy admin: Username = admin - Password = 1234");
-					while (!view.login());
-					viewAdmin.displayMenu();
+					do{	user = view.login();} while (user == null);
+					viewAdmin.displayMenu(user);
 				}
 				case "client" -> {
 					System.out.println("*** Client Login ***\nDummy client: Username = client - Password = 1234");
-					while (!view.login());
-					viewClient.displayMenu();
+					do{	user = view.login();} while (user == null);
+					viewClient.displayMenu(user);
 				}
 				case "create user" -> createUser(view);
 			}

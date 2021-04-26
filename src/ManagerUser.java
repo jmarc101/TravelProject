@@ -78,4 +78,9 @@ public class ManagerUser implements EntityManager, Iterable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public ArrayList<TravelEntity> getList() {
+		return null;
+	}
+
 }

@@ -1,6 +1,8 @@
 public class StateAvailable implements IState {
 
-    public StateAvailable() {
+    Seat seat;
+    public StateAvailable(Seat seat) {
+        this.seat = seat;
     }
 
     /**
@@ -8,8 +10,9 @@ public class StateAvailable implements IState {
      * @param clientID
      */
     public boolean reserve(String clientID) {
-        // TODO - implement AvailableState.reserve
-        throw new UnsupportedOperationException();
+        seat.setClientID(clientID);
+        seat.setiState(new StateReserved(seat));
+        return true;
     }
 
     /**

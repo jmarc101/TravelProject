@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class ViewClient extends View{
     ControllerClient controllerClient;
+    User user;
 
     public ViewClient(ControllerClient controller) {
         super(controller);
@@ -10,7 +11,8 @@ public class ViewClient extends View{
     }
 
 
-    public String displayMenu(){
+    public String displayMenu(User user){
+        this.user = user;
         System.out.println("\n\nWelcome to Client Control Panel\nPlease choose an options below\n");
         System.out.println("--Client Options COMMANDS--\n'view routes'\n'pay seat'\n'reservations'");
         System.out.println("\nEXIT : '-1'");
@@ -24,7 +26,7 @@ public class ViewClient extends View{
             switch (result) {
                 case "view routes" -> clientRouteView();
                 case "pay seat" -> clientPaySeat();
-                case "reservation" -> clientReservation();
+                case "reservations" -> clientReservation();
                 case "-1" -> {
                     run = false;
                     System.out.println("Going Back");
@@ -33,6 +35,29 @@ public class ViewClient extends View{
             }
         }
         return result;
+    }
+
+
+    public void clientPaySeat(){
+        clientReservation();
+        System.out.println("\nPlease Enter ResID for reservation to pay\n");
+        String res = listen("");
+        Reservation reservation2 = (Reservation) getControllerClient().getReservationManager().read(res);
+        if (reservation2 == null) {
+            System.out.println("Invalid Reservation");
+        }
+        ArrayList<String> info = getCC();
+        CreditCard creditCard = new CreditCard(info.get(0), info.get(1), info.get(2), info.get(3));
+        boolean payment = getControllerClient().makePayment(res, creditCard);
+        if (payment) {
+            System.out.println("*** Payment Confirmed ***");
+            Reservation reservation = (Reservation) getControllerClient().reservationManager.read(res);
+            reservation.getPayment().toStrings();
+        }
+        else {
+            System.out.println("Payment Failed");
+        }
+
     }
 
 
@@ -118,12 +143,21 @@ public class ViewClient extends View{
     }
 
     public void clientReservation(){
-        System.out.println("Reservations");
+        System.out.println("*** Your Reservations ***");
+        Iterator iterator = getControllerClient().getReservationIterator();
+        ArrayList<Reservation> reservations = new ArrayList<>();
+        while (!iterator.isDone()){
+            TravelEntity item = iterator.currentItem();
+            Reservation reservation = (Reservation) item;
+            if (reservation.getClientID().equals(user.getUserName())) reservations.add(reservation);
+            iterator.next();
+        }
+        for (Reservation reservation : reservations){
+            System.out.println(reservation.toString());
+        }
     }
 
-    public void clientPaySeat(){
-        System.out.println("Pay seat!");
-    }
+
 
     public ControllerClient getControllerClient() {
         return controllerClient;
@@ -154,6 +188,7 @@ public class ViewClient extends View{
         System.out.println("\n**Options**\n'reserve seat'\n'go back'\n");
         String result = listen("");
         switch (result){
+
             case "reserve seat" ->{
                 StringBuilder ids = new StringBuilder("|");
                 for (Route route : routes){
@@ -163,21 +198,27 @@ public class ViewClient extends View{
                 String choice = listen("");
                 Route route = (Route)getControllerClient().getRouteManager().read(choice);
                 if (route == null) {
-                    System.out.println("Invalide choice -- going back");
+                    System.out.println("Invalid choice -- going back");
                     return;
                 }
-                System.out.println("\n\n");
-                getControllerClient().visit(route, section);
-                viewSeats(route, section);
-                String columnNumber = listen("Enter Column number ");
-                String seatNum = listen("Enter Seat number ");
 
-                String seatID = "C"+columnNumber+"N"+seatNum;
-                System.out.println("Seat Id -> " + seatID);
+                String seatID = getSeatId(route, section);
+                boolean reserved = getControllerClient().reserveSeat(route.getRouteID() , user.getUserName(), seatID);
+                if (reserved)System.out.println("Seat Reserved, Please pay within 24 hours");
+                else System.out.println("Error reserving seat, please try again");
 
             }
         }
+    }
 
+    public String getSeatId(Route route, char section){
+
+        getControllerClient().visit(route, section);
+        viewSeats(route, section);
+        String columnNumber = listen("\n\nEnter Column number ");
+        String seatNum = listen("Enter Seat number ");
+
+        return "" + section + "C" + columnNumber + "|N" + seatNum;
     }
 
 
@@ -189,7 +230,7 @@ public class ViewClient extends View{
 
         for (Seat seat: seats){
             for (int i = 1; i <= cols.length; i++) {
-                if (("" + seat.getSeatID().charAt(1)).equals(""+i)  && seat.isAvailable() && seat.getSectionID() == section){
+                if (("" + seat.getSeatID().charAt(2)).equals(""+i)  && seat.isAvailable() && seat.getSectionID() == section){
                     cols[i - 1] += "N" + seat.getNumber() + "|";
                 }
             }
@@ -197,6 +238,16 @@ public class ViewClient extends View{
         for (int i = 0; i < 7; i++) {
             System.out.println(cols[i]);
         }
+    }
+
+    public ArrayList<String> getCC(){
+        System.out.println("*** Credit Card Info Required ***");
+        ArrayList<String> list = new ArrayList<>();
+        list.add(listen("Name on Card " ));
+        list.add(listen("Card Number " ));
+        list.add(listen("Expiration Date " ));
+        list.add(listen("CVV " ));
+        return list;
     }
 
 }

@@ -4,11 +4,11 @@ public abstract class Section extends TravelEntity {
 
 	protected Class sectionClass;
 	ArrayList<Seat> seats;
-	double companyPrice;
+	double price;
 
 	public Section(Class sectionClass, double companyPrice) {
 		this.sectionClass = sectionClass;
-		this.companyPrice = companyPrice;
+		this.price = companyPrice * sectionClass.getPriceModifier();
 		seats = new ArrayList<>();
 
 		createSeat();
@@ -24,21 +24,21 @@ public abstract class Section extends TravelEntity {
 
 		for (int i = 1; i <= numCol; i++) {
 			for (int j = 1; j <=seatPerCol ; j++) {
-				addSeat(new SeatMedium(companyPrice, sectionClass.getId(), i, j));
+				addSeat(new SeatMedium(price , sectionClass.getId(), i, j));
 			}
 		}
 		for (int i = 0; i < extraSeat; i++) {
-			addSeat(new SeatMedium(companyPrice,sectionClass.getId(),7,i));
+			addSeat(new SeatMedium(price ,sectionClass.getId(),7,i));
 		}
 
+	}
+
+	public double getPrice() {
+		return price;
 	}
 
 	public ArrayList<Seat> getSeats() {
 		return seats;
-	}
-	public void setPrice() {
-		// TODO - implement Section.setPrice
-		throw new UnsupportedOperationException();
 	}
 
 	/**

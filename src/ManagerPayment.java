@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 
-public class ManagerPayment implements EntityManager, IPayment, Iterable {
+public class ManagerPayment implements EntityManager {
 
 	private ArrayList<Payment> listPayment;
+
 
 
 	public ManagerPayment() {
@@ -52,29 +53,5 @@ public class ManagerPayment implements EntityManager, IPayment, Iterable {
 		return null;
 	}
 
-	/**
-	 * 
-	 * @param amount
-	 * @param cc
-	 */
-	public boolean makePayment(double amount, CreditCard cc) {
-		// TODO - implement ManagerPayment.makePayment
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param amount
-	 * @param cc
-	 */
-	public boolean refundPayment(double amount, CreditCard cc) {
-		// TODO - implement ManagerPayment.refundPayment
-		throw new UnsupportedOperationException();
-	}
-
-	public Iterator createIterator() {
-		// TODO - implement ManagerPayment.createIterator
-		throw new UnsupportedOperationException();
-	}
 
 }

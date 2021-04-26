@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class ManagerTransitHub implements EntityManager, Iterable {
+public class ManagerTransitHub implements EntityManager {
 
 	private ArrayList<TransitHub> listTransitHubs;
 

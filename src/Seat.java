@@ -1,24 +1,22 @@
-import java.util.ArrayList;
-
 public abstract class Seat extends TravelEntity {
 
 	private String seatID;
 	private double price;
 	private String clientID;
-	private IState IState;
+	private IState iState;
 	private char sectionID;
 	private int column;
 	private int number;
 
 
 	public Seat(double price, char sectionID, int column, int number) {
-		this.seatID = "C" + column + "|N" + number;
+		this.seatID = "" + sectionID + "C" + column + "|N" + number;
 		this.price = price;
 		this.sectionID = sectionID;
 		this.column = column;
 		this.number = number;
 
-		IState = new StateAvailable();
+		iState = new StateAvailable(this);
 	}
 
 	public int getColumn() {
@@ -62,7 +60,7 @@ public abstract class Seat extends TravelEntity {
 	}
 
 	public void setState(IState IState) {
-		this.IState = IState;
+		this.iState = IState;
 	}
 
 	public char getSectionID() {
@@ -74,13 +72,9 @@ public abstract class Seat extends TravelEntity {
 	}
 
 
-	public boolean setState() {
-		// TODO - implement Seat.setState
-		throw new UnsupportedOperationException();
-	}
 
 	public IState getState() {
-		return this.IState;
+		return this.iState;
 	}
 
 	public Route getRoute() {
@@ -93,8 +87,7 @@ public abstract class Seat extends TravelEntity {
 	 * @param clientID
 	 */
 	public boolean reserve(String clientID) {
-		// TODO - implement Seat.reserve
-		throw new UnsupportedOperationException();
+		return iState.reserve(clientID);
 	}
 
 	/**
@@ -102,20 +95,21 @@ public abstract class Seat extends TravelEntity {
 	 * @param clientID
 	 */
 	public boolean freeSeat(String clientID) {
-		// TODO - implement Seat.freeSeat
-		throw new UnsupportedOperationException();
+		return iState.freeSeat(clientID);
 	}
 
 	public boolean isAvailable() {
 
-		return IState.isAvailable();
+		return iState.isAvailable();
 	}
 
-	public IState getIState() {
-		return IState;
+	public IState getiState() {
+		return iState;
 	}
 
-	public void setIState(IState IState) {
-		this.IState = IState;
+	public void setiState(IState iState) {
+		this.iState = iState;
 	}
+
+
 }

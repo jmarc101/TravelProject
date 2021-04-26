@@ -26,7 +26,7 @@ public class ClientIVisitor implements IVisitor {
 			sectionReserved[i] = reserved;
 			sectionID[i] = sections.get(i).sectionClass.getId();
 			sectionMax[i] = sections.get(i).sectionClass.getMaxCapacity();
-			sectionPrice[i] = sections.get(i).companyPrice	* sections.get(i).sectionClass.getPriceModifier();
+			sectionPrice[i] = sections.get(i).getPrice();
 		}
 
 		String flight = route.getStartHubID() + "-" + route.getEndHubID() + ":[" + route.getCompanyID().getName() + "]" +

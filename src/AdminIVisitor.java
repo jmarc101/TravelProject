@@ -21,7 +21,7 @@ public class AdminIVisitor implements IVisitor {
 			sectionReserved[i] = reserved;
 			sectionID[i] = sections.get(i).sectionClass.getId();
 			sectionMax[i] = sections.get(i).sectionClass.getMaxCapacity();
-			sectionPrice[i] = sections.get(i).companyPrice	* sections.get(i).sectionClass.getPriceModifier();
+			sectionPrice[i] = sections.get(i).getPrice();
 		}
 		for (int i = 0; i < sectionReserved.length; i++) {
 			sectionSplit[i] = "|" + sectionID[i] + "(" + sectionReserved[i] + "/" + sectionMax[i] + ")" + sectionPrice[i] ;

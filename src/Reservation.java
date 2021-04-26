@@ -1,10 +1,29 @@
 public class Reservation extends TravelEntity {
 
+
 	private String reservationID;
 	private String clientID;
 	private String routeID;
 	private Payment payment;
 	private String seatID;
+	private double price;
+
+	public Reservation(String reservationID, String clientID, String routeID, String seatID, double price) {
+		this.reservationID = reservationID;
+		this.clientID = clientID;
+		this.routeID = routeID;
+		this.seatID = seatID;
+		this.price = price;
+	}
+
+	public double getPrice() {
+
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
 	public String getReservationID() {
 		return reservationID;
@@ -57,8 +76,10 @@ public class Reservation extends TravelEntity {
 	}
 
 	public String toString() {
-		// TODO - implement Reservation.toString
-		throw new UnsupportedOperationException();
+		String paid = "Paid";
+		if (payment == null) paid = "Unpaid";
+		return "ResId:" + reservationID + "| Client:" + clientID + "| Seat:" +
+				seatID + "| Route: " + routeID + "| Amount: " + price +  "| Status:" +paid;
 	}
 
 }

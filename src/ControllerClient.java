@@ -9,6 +9,7 @@ public class ControllerClient extends Controller {
 	EntityManager routeManager;
 	Iterable routeIter;
 	IRoutes router;
+	IReservation iReservation;
 
 	public ControllerClient() {
 		super();
@@ -18,38 +19,24 @@ public class ControllerClient extends Controller {
 		routeIter = (Iterable) routeManager;
 		iVisitor = new ClientIVisitor();
 		router = (IRoutes) routeManager;
+		iReservation = (IReservation) reservationManager;
 
 	}
 
-
-
-	/**
-	 *
-	 * @param clientID
-	 * @param seat
-	 */
-	public boolean reserveSeat(String clientID, Seat seat) {
-		// TODO - implement ControllerClient.reserveSeat
-		throw new UnsupportedOperationException();
+	public boolean reserveSeat(String routeID, String clientID, String seatID) {
+		return iReservation.reserveSeat(routeID, clientID, seatID);
 	}
 
 	/**
 	 *
 	 * @param reservationID
 	 */
-	public boolean paySeat(String reservationID) {
-		// TODO - implement ControllerClient.paySeat
-		throw new UnsupportedOperationException();
-	}
+	public boolean makePayment(String reservationID,CreditCard card) {
+		Payment payment = iReservation.makePayment(reservationID, card);
+		if (payment == null) return false;
 
-	/**
-	 *
-	 * @param amount
-	 * @param cc
-	 */
-	public boolean makePayment(double amount, CreditCard cc) {
-		// TODO - implement ControllerClient.makePayment
-		throw new UnsupportedOperationException();
+		paymentManager.insert(payment);
+		return true;
 	}
 
 	/**
@@ -100,5 +87,9 @@ public class ControllerClient extends Controller {
 
 	public Iterable getRouteIter() {
 		return routeIter;
+	}
+
+	public Iterator getReservationIterator(){
+		return ((Iterable) reservationManager).createIterator();
 	}
 }
