@@ -2,16 +2,9 @@ import java.util.ArrayList;
 
 public class ClientIVisitor implements IVisitor {
 
-	/**
-	 * 
-	 * @param route
-	 */
-	public void visit(Route route) {
-
-	}
-
 	@Override
-	public void visit(Route route, char classID) {
+	public void visit(Route route) {
+		System.out.println("\n*** Flight ID : " + route.getRouteID());
 		ArrayList<Section> sections = route.getVehicle().getSections();
 		int[] sectionReserved = new int[sections.size()];
 		char[] sectionID = new char[sections.size()];
@@ -36,11 +29,25 @@ public class ClientIVisitor implements IVisitor {
 			sectionSplit[i] = flight + "|" + sectionID[i] + "(" + sectionReserved[i] + "/" + sectionMax[i] + ")" + sectionPrice[i] ;
 		}
 
+		for (int i = 0; i < sectionSplit.length; i++) {
 
-		for (int i = 0; i < sections.size(); i++) {
-
-			if (sections.get(i).sectionClass.getId() == classID) System.out.println(sectionSplit[i]);
+			switch (sectionID[i]){
+				case 'F':
+					System.out.print("First Class : ");
+					break;
+				case 'E':
+					System.out.print("Economy Class : ");
+					break;
+				case 'D':
+					System.out.print("Business Class : ");
+					break;
+				case 'P':
+					System.out.print("Premium Class : ");
+					break;
+			}
+			System.out.println(sectionSplit[i]);
 		}
+
 	}
 
 }

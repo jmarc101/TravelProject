@@ -22,7 +22,7 @@ public class MainTravelSystem {
 		ViewClient viewClient = new ViewClient(controllerClient);
 
 
-		controllerClient.reservationManager.insert(new Reservation("r1", "client", "AB101","c02ksf", 100));
+		controllerClient.reservationManager.insert(new Reservation("r88888888", "client", "AB101","c02ksf", 100));
 
 		View view = new View(controllerAdministration);
 		boolean run = true;
@@ -30,7 +30,7 @@ public class MainTravelSystem {
 
 			String usertype = view.displayMenu(user);
 			switch (usertype) {
-				case "-1" -> run = false;
+				case "exit" -> {run = false;}
 				case "admin" -> {
 					System.out.println("*** Admin Login ***\nDummy admin: Username = admin - Password = 1234");
 					do{	user = view.login();} while (user == null);
@@ -41,22 +41,11 @@ public class MainTravelSystem {
 					do{	user = view.login();} while (user == null);
 					viewClient.displayMenu(user);
 				}
-				case "create user" -> createUser(view);
+				case "create user" -> {
+					ArrayList<String> info = view.getUserInfo();
+					controllerClient.createUser(info);
+				}
 			}
-
 		}
-
-
-
-
-
 	}
-
-
-	public static void createUser(View view){
-		ArrayList<String> info = view.getUserInfo();
-		controllerAdministration.userManager.insert(new UserClient(info.get(0), info.get(1), info.get(2), info.get(3),
-				info.get(4), info.get(5), info.get(6), info.get(7), info.get(8), info.get(9)));
-	}
-
 }

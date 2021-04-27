@@ -10,21 +10,27 @@ public class ControllerClient extends Controller {
 	Iterable routeIter;
 	IRoutes router;
 	IReservation iReservation;
+	ArrayList<ISubject> iSubjects;
 
 	public ControllerClient() {
 		super();
 		paymentManager = new ManagerPayment();
-		reservationManager = new ManagerReservation();
+		reservationManager = ManagerReservation.getInstance();
 		routeManager = ManagerRoute.getInstance();
 		routeIter = (Iterable) routeManager;
 		iVisitor = new ClientIVisitor();
 		router = (IRoutes) routeManager;
 		iReservation = (IReservation) reservationManager;
+		iSubjects = new ArrayList<>();
 
 	}
 
 	public boolean reserveSeat(String routeID, String clientID, String seatID) {
-		return iReservation.reserveSeat(routeID, clientID, seatID);
+		if (iReservation.reserveSeat(routeID, clientID, seatID)){
+			notifyObs();
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -39,6 +45,10 @@ public class ControllerClient extends Controller {
 		return true;
 	}
 
+	public void acceptVisitor(IVisitor visitor, IVisitable subject){
+		subject.acceptVisitor(visitor);
+	}
+
 	/**
 	 *
 	 * @param amount
@@ -49,20 +59,33 @@ public class ControllerClient extends Controller {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 *
-	 * @param route
-	 */
-	public void visit(Route route, char classID) {
-		iVisitor.visit(route, classID);
+	public void attachObs(IObserver observer){
+
+
+		for (ISubject subject : iSubjects){
+			subject.attach(observer);
+		}
 	}
 
-	public ArrayList<Route> getRoutesByHub(String vehicleType, char section, String startHubID, String endHubID){
-		return router.getRoutesByHub(vehicleType, section, startHubID, endHubID);
+	public void detachObs(IObserver observer){
+		for (ISubject subject : iSubjects){
+			subject.detach(observer);
+		}
 	}
 
-	public ArrayList<Route> getRoutesByDate(String vehicleType, char section, String date){
-		return router.getRoutesByDate(vehicleType,section,date);
+	private void notifyObs(){
+		for (ISubject subject : iSubjects){
+			subject.notifyObs();
+		}
+	}
+
+
+	public ArrayList<Route> getRoutesByHub(String vehicleType, String startHubID, String endHubID){
+		return router.getRoutesByHub(vehicleType, startHubID, endHubID);
+	}
+
+	public ArrayList<Route> getRoutesByDate(String vehicleType, String date){
+		return router.getRoutesByDate(vehicleType,date);
 	}
 
 	public ArrayList<Route> getAllRoutes(){

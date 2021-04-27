@@ -15,7 +15,7 @@ public class CommandGetCompany extends Command {
 		}
 
 		company.toStrings();
-		getView().listen("\n\nenter to continue");
+		getView().listen("\n <<<Press enter to go back to menu");
 
 
 	}

@@ -15,7 +15,7 @@ public class CommandGetTransitHub extends Command {
 		System.out.println("***INFO***");
 		hub.toStrings();
 
-		getView().listen("\n\nenter to continue");
+		getView().listen("\n <<<Press enter to go back to menu");
 
 	}
 

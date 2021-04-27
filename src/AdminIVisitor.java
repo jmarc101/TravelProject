@@ -7,6 +7,7 @@ public class AdminIVisitor implements IVisitor {
 	 * @param route
 	 */
 	public void visit(Route route) {
+
 		ArrayList<Section> sections = route.getVehicle().getSections();
 		int[] sectionReserved = new int[sections.size()];
 		char[] sectionID = new char[sections.size()];
@@ -40,8 +41,4 @@ public class AdminIVisitor implements IVisitor {
 
 	}
 
-	@Override
-	public void visit(Route route, char classID) {
-
-	}
 }

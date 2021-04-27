@@ -7,6 +7,7 @@ public class ViewClient extends View{
     public ViewClient(ControllerClient controller) {
         super(controller);
         controllerClient = controller;
+        controllerClient.attachObs(this);
 
     }
 
@@ -14,20 +15,19 @@ public class ViewClient extends View{
     public String displayMenu(User user){
         this.user = user;
         System.out.println("\n\nWelcome to Client Control Panel\nPlease choose an options below\n");
-        System.out.println("--Client Options COMMANDS--\n'view routes'\n'pay seat'\n'reservations'");
-        System.out.println("\nEXIT : '-1'");
+        System.out.println("--Client Options COMMANDS--\n'view routes'\n'pay seat'\n'reservations'\n'back'");
 
         boolean run = true;
         String result = "";
         while (run) {
 
-            result = listen("\n*** Enter Client Menu Choice ('view routes'|'pay seat'|'reservations') ***\n");
+            result = listen("\n*** Enter Client Menu Choice ***\n('view routes'  |  'pay seat'  |  'reservations'  |  'back')\n");
 
             switch (result) {
                 case "view routes" -> clientRouteView();
                 case "pay seat" -> clientPaySeat();
                 case "reservations" -> clientReservation();
-                case "-1" -> {
+                case "back" -> {
                     run = false;
                     System.out.println("Going Back");
                 }
@@ -64,10 +64,11 @@ public class ViewClient extends View{
     public void clientRouteView(){
         ArrayList<Route> routes = new ArrayList<>();
         String type = chooseVehicle();
-        String[] section = chooseSection(type);
-        if (type.equals("-1") || section[1].equals("-1") ) return;
-        String sectionName = section[0];
-        char sectionID = section[1].charAt(0);
+        if (type.equals("back")){
+            System.out.println("Going back");
+            return;
+        }
+
 
         System.out.println("\nChoose options\n\n'by date'\n'by hub'\n'all'");
         String result = listen("");
@@ -78,63 +79,65 @@ public class ViewClient extends View{
             case "by date" -> {
                 date = listen("Enter Departure Date (YYYY.MM.DD) ");
 
-                routes = getControllerClient().getRoutesByDate(type,sectionID,date);
+                routes = getControllerClient().getRoutesByDate(type,date);
 
                 for (Route route : routes){
-                    getControllerClient().visit(route, sectionID);
+                    getRoutes(route);
                 }
 
-                reserveSeat(routes, sectionID);
+                reserveSeat(routes, type);
 
             }
             case "by hub" -> {
                 System.out.println("** Hub choices** \nAirports (YUL|YYZ|JFK)\nTrain Stations (MTT|TTT|NYT)\nBoat Ports (MTP|TTP|NYP)\n");
                 hubDepart = listen("Enter Departure Hub ");
                 hubArrival = listen("Enter Arrival Hub ");
-                routes = getControllerClient().getRoutesByHub(type,sectionID, hubDepart, hubArrival);
+                routes = getControllerClient().getRoutesByHub(type, hubDepart, hubArrival);
 
                 for (Route route : routes){
-                    getControllerClient().visit(route, sectionID);
+                    getRoutes(route);
                 }
-                reserveSeat(routes, sectionID);
+
+                reserveSeat(routes, type);
             }
             case "all" -> {
 
                 switch (type) {
                     case "airplane" -> {
-                        System.out.println("*** Vehicle: " + type + " | Section: " + sectionName);
+                        System.out.println("*** Vehicle: " + type+ " ***");
 
                         for (Route route : getControllerClient().getAllRoutes()) {
                             if (route.getVehicle() instanceof VehicleAirplane) {
                                 routes.add(route);
-                                getControllerClient().visit(route, sectionID);
+                                getRoutes(route);
                             }
                         }
-                        reserveSeat(routes, sectionID);
+
+                        reserveSeat(routes, type);
 
                     }
 
                     case "boat" -> {
-                        System.out.println("*** Vehicle: " + type + " | Section: " + sectionName);
+                        System.out.println("*** Vehicle: " + type + " ***");
                         for (Route route : getControllerClient().getAllRoutes()) {
                             if (route.getVehicle() instanceof VehicleBoat) {
                                 routes.add(route);
-                                getControllerClient().visit(route, sectionID);
+                                getRoutes(route);
                             }
                         }
-                        reserveSeat(routes, sectionID);
+
+                        reserveSeat(routes, type);
 
                     }
                     case "train" -> {
-                        System.out.println("*** Vehicle: " + type + " | Section: " + sectionName + " ***");
+                        System.out.println("*** Vehicle: " + type + " ***" );
                         for (Route route : getControllerClient().getAllRoutes()) {
                             if (route.getVehicle() instanceof VehicleTrain) {
                                 routes.add(route);
-                                getControllerClient().visit(route, sectionID);
+                                getRoutes(route);
                             }
                         }
-                        reserveSeat(routes, sectionID);
-
+                        reserveSeat(routes, type);
                     }
                 }
             }
@@ -164,50 +167,54 @@ public class ViewClient extends View{
     }
 
     public String chooseVehicle(){
-        System.out.println("\n *** View Routes ***\n** Choose Vehicle Type **\n'airplane'\n'train'\n'boat'");
+        System.out.println("\n *** View Routes ***\n** Choose Vehicle Type **\n'airplane'\n'train'\n'boat'\n'back'");
         String type =listen("\n");
         if (type.equals("airplane") || type.equals("train") || type.equals("boat")) return type;
-        return "-1";
+        return "back";
     }
 
-    public String[] chooseSection(String vehicletype){
-        String[] type = new String[2];
-        type[1] = "-1";
+    public char chooseSection(String vehicletype){
+
+
         if (vehicletype.equals("boat")){
             System.out.println("\n** Choose Section **\n'family cabin'\n'premium family'" +
                     "\n'interior cabin'\n'ocean view'\n'suite cabin'");
-            type[0] = listen("\n");
-            switch (type[0]){
-                case "family cabin" -> type[1] = "F";
-                case "premium family" -> type[1] = "D";
-                case "interior cabin" -> type[1] = "I";
-                case "ocean view" -> type[1] = "O";
-                case "suite cabin" -> type[1] = "S";
+            String section = listen("\n");
+            switch (section){
+                case "family cabin" -> {return 'F';}
+                case "premium family" -> {return 'D';}
+                case "interior cabin" -> {return 'I';}
+                case "ocean view" -> {return 'O';}
+                case "suite cabin" -> {return 'S';}
             }
-            return type;
+            return '\0';
 
         }
 
         System.out.println("\n** Choose Section **\n'premium'\n'economy'\n'business'\n'first'");
 
-        type[0] = listen("\n");
-        type[1] = "-1";
-        switch (type[0]){
-            case "premium" -> type[1] = "P";
-            case "economy" -> type[1] = "E";
-            case "first" -> type[1] = "F";
-            case "business" -> type[1] = "D";
+        String section = listen("\n");
+
+        switch (section){
+            case "premium" -> {return 'P';}
+            case "economy" -> {return 'E';}
+            case "first" -> {return 'F';}
+            case "business" -> {return 'D';}
         }
-        return type;
+        return '\0';
     }
 
 
-    public void reserveSeat(ArrayList<Route> routes, char section){
-        System.out.println("\n**Options**\n'reserve seat'\n'go back'\n");
+    public void reserveSeat(ArrayList<Route> routes, String vehicleType){
+        System.out.println("\n**Options**\n'reserve seat'\n'refresh'\n'back'\n");
         String result = listen("");
         switch (result){
 
             case "reserve seat" ->{
+
+                char sectionID = chooseSection(vehicleType);
+
+
                 StringBuilder ids = new StringBuilder("|");
                 for (Route route : routes){
                     ids.append(route.getRouteID()).append("|");
@@ -220,18 +227,40 @@ public class ViewClient extends View{
                     return;
                 }
 
-                String seatID = getSeatId(route, section);
+                String seatID = getSeatId(route, sectionID);
                 boolean reserved = getControllerClient().reserveSeat(route.getRouteID() , user.getUserName(), seatID);
                 if (reserved)System.out.println("Seat Reserved, Please pay within 24 hours");
                 else System.out.println("Error reserving seat, please try again");
 
             }
+
+            case "refresh" -> {
+                if (doRouteNeedUpdate()){
+                    System.out.println("*** Refreshed List ***");
+                    for (Route route : routes){
+                        getRoutes(route);
+                    }
+                } else {
+                    System.out.println("Routes are up to date");
+                }
+                reserveSeat(routes,vehicleType);
+                break;
+            }
+            case "back" -> {
+                System.out.println("Going back");
+                return;
+            }
         }
+    }
+
+
+    public void getRoutes(Route route){
+        getControllerClient().acceptVisitor(getControllerClient().getIVisitor(), route);
+        setRouteNeedUpdate(false);
     }
 
     public String getSeatId(Route route, char section){
 
-        getControllerClient().visit(route, section);
         viewSeats(route, section);
         String columnNumber = listen("\n\nEnter Column number ");
         String seatNum = listen("Enter Seat number ");

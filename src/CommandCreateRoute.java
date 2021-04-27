@@ -16,7 +16,7 @@ public class CommandCreateRoute extends Command {
 			return;
 		}
 		Company company = (Company)getController().companyManager.read(info.get(5));
-		Vehicle vehicle = company.getVehicle(Integer.parseInt(info.get(6)));
+		Vehicle vehicle = company.getVehicle(Integer.parseInt(info.get(6)) - 1);
 		System.out.println("Route ID : " + company.getRouteID());
 		getController().createRoute(info.get(1), info.get(2), info.get(3),info.get(4),company,vehicle);
 

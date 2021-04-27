@@ -8,24 +8,25 @@ public class CommandAllRoutes extends Command
     @Override
     public void execute() {
 
-        System.out.println("**** Airplane Routes ****");
+        System.out.println("\n**** Airplane Routes ****");
         for (Route route : getController().getAllRoutes()) {
             if (route.getVehicle() instanceof VehicleAirplane) {
                 getController().visit(route);
             }
         }
-        System.out.println("**** Train Routes ****");
+        System.out.println("\n**** Train Routes ****");
         for (Route route : getController().getAllRoutes()) {
             if (route.getVehicle() instanceof VehicleTrain) {
                 getController().visit(route);
             }
         }
-        System.out.println("**** Boat Routes ****");
+        System.out.println("\n**** Boat Routes ****");
         for (Route route : getController().getAllRoutes()) {
             if (route.getVehicle() instanceof VehicleBoat) {
                 getController().visit(route);
             }
         }
+        getView().listen("\n <<<Press enter to go back to menu");
     }
 
     @Override

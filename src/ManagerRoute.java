@@ -2,12 +2,14 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ManagerRoute implements EntityManager, Iterable, IRoutes {
+public class ManagerRoute implements EntityManager, Iterable, IRoutes, ISubject {
 
 	private ArrayList<Route> listRoutes = new ArrayList<>();
 	private static ManagerRoute instance;
+	private ArrayList<IObserver> obs;
 
 	private ManagerRoute() {
+		obs = new ArrayList<>();
 	}
 
 
@@ -67,7 +69,7 @@ public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 
 
 	@Override
-	public ArrayList<Route> getRoutesByHub(String vehicleType, char section, String startHubID, String endHubID) {
+	public ArrayList<Route> getRoutesByHub(String vehicleType, String startHubID, String endHubID) {
 		ArrayList<Route> list = new ArrayList<>();
 
 		for (Route route : listRoutes) {
@@ -95,7 +97,7 @@ public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 	}
 
 	@Override
-	public ArrayList<Route> getRoutesByDate(String vehicleType, char section, String date) {
+	public ArrayList<Route> getRoutesByDate(String vehicleType, String date) {
 
 		ArrayList<Route> list = new ArrayList<>();
 
@@ -120,5 +122,22 @@ public class ManagerRoute implements EntityManager, Iterable, IRoutes {
 	@Override
 	public ArrayList<TravelEntity> getList() {
 		return null;
+	}
+
+
+	public void attach(IObserver o) {
+		if (obs.contains(o)) return;
+		obs.add(o);
+	}
+
+
+	public void detach(IObserver o) {
+		obs.remove(o);
+	}
+
+	public void notifyObs() {
+		for (IObserver o : obs){
+			o.update();
+		}
 	}
 }

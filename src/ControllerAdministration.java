@@ -14,6 +14,8 @@ public class ControllerAdministration extends Controller {
 	EntityManager routeManager;
 	Iterable routeIter;
 	IRoutes routeReader;
+	ArrayList<ISubject> iSubjects;
+
 
 	public ControllerAdministration() {
 		airplaneFactory = FactoryAirplane.getInstance();
@@ -26,6 +28,9 @@ public class ControllerAdministration extends Controller {
 		routeManager = ManagerRoute.getInstance();
 		routeIter = (Iterable) routeManager;
 		routeReader = (IRoutes) routeManager;
+		iSubjects = new ArrayList<>();
+		iSubjects.add((ISubject) routeManager);
+		iSubjects.add(ManagerReservation.getInstance());
 
 		populateManagers();
 	}
@@ -80,6 +85,28 @@ public class ControllerAdministration extends Controller {
 	 */
 	public void visit(Route route) {
 		iVisitor.visit(route);
+	}
+
+	public void acceptVisitor(IVisitor visitor, IVisitable subject){
+		subject.acceptVisitor(visitor);
+	}
+
+	public void attachObs(IObserver observer){
+		for (ISubject subject : iSubjects){
+			subject.attach(observer);
+		}
+	}
+
+	public void detachObs(IObserver observer){
+		for (ISubject subject : iSubjects){
+			subject.detach(observer);
+		}
+	}
+
+	private void notifyObs(){
+		for (ISubject subject : iSubjects){
+			subject.notifyObs();
+		}
 	}
 
 	public ArrayList<Route> getAllRoutes(){

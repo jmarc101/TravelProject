@@ -13,8 +13,8 @@ public class CommandGetRoute extends Command {
 			System.out.println("Invalid ID");
 			return;
 		}
-		getController().visit(route);
-		getView().listen("\n\nenter to continue");
+		getController().acceptVisitor(getController().getiVisitor(), route);
+		getView().listen("\n <<<Press enter to go back to menu");
 
 	}
 

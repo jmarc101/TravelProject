@@ -9,9 +9,11 @@ public class ViewAdmin extends View{
     public ViewAdmin(ControllerAdministration controller) {
         super(controller);
         controllerAdministration = controller;
+        controllerAdministration.attachObs(this);
+
         commands = new HashMap<>();
 
-        addCommand("all routes", new CommandAllRoutes(controllerAdministration, this));
+        addCommand("view all routes", new CommandAllRoutes(controllerAdministration, this));
         addCommand("get route",new CommandGetRoute(controllerAdministration, this));
         addCommand("create route",new CommandCreateRoute(controllerAdministration, this));
         addCommand("modify route",new CommandModifyRoute(controllerAdministration, this));
@@ -45,7 +47,10 @@ public class ViewAdmin extends View{
             result = listen("");
 
             if (commands.containsKey(result)) commands.get(result).execute();
-            else if (result.equals("-1")) run = false;
+            else if (result.equals("back")) {
+                run = false;
+                System.out.println("Going back");
+            }
             else System.out.println("Invalid choice\nPlease choose again");
         }
         return result;
@@ -104,6 +109,8 @@ public class ViewAdmin extends View{
         System.out.println("\n\nWelcome to Admin Control Panel\nPlease choose an options below\n");
         System.out.println("'get route'    |  'create route'    |  'modify route'    |  'delete route'");
         System.out.println("'get company'  |  'create company'  |  'modify company'  |  'delete company'");
-        System.out.println("'get hub'      |  'create hub'      |  'modify hub'      |  'delete hub'\n'all routes'\nexit : '-1'\n");
+        System.out.println("'get hub'      |  'create hub'      |  'modify hub'      |  'delete hub'\n'view all routes'\n'back'\n");
     }
+
+
 }

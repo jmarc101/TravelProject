@@ -28,37 +28,11 @@ public abstract class Controller {
 
 
 
-	/**
-	 * 
-	 * @param companyID
-	 */
-	public ArrayList<Route> getRoutesByCompany(String companyID) {
-		// TODO - implement Controller.getRoutesByCompany
-		throw new UnsupportedOperationException();
-	}
 
-	/**
-	 * 
-	 * @param startHubID
-	 * @param endHubID
-	 */
-	public ArrayList<Route> getRoutesByHub(String startHubID, String endHubID) {
-		// TODO - implement Controller.getRoutesByHub
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param date
-	 */
-	public ArrayList<Route> getRoutesByDate(Date date) {
-		// TODO - implement Controller.getRoutesByDate
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean createUser() {
-		// TODO - implement Controller.createUser
-		throw new UnsupportedOperationException();
+	public boolean createUser(ArrayList<String> info) {
+		getUserManager().insert(new UserClient(info.get(0), info.get(1), info.get(2), info.get(3),
+				info.get(4), info.get(5), info.get(6), info.get(7), info.get(8), info.get(9)));
+		return true;
 	}
 
 	/**

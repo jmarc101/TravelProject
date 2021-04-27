@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Route extends TravelEntity implements IVisitable, ISubject {
+public class Route extends TravelEntity implements IVisitable{
 
 
 	private String routeID;
@@ -16,6 +16,7 @@ public class Route extends TravelEntity implements IVisitable, ISubject {
 	private Vehicle vehicle;
 
 
+
 	public Route(String routeID, String startHubID, String endHubID, String dateDebut, String dateFin, Company company, Vehicle vehicle) {
 		this.routeID = routeID;
 		this.startHubID = startHubID;
@@ -25,6 +26,7 @@ public class Route extends TravelEntity implements IVisitable, ISubject {
 		this.company = company;
 		this.price = price;
 		this.vehicle = vehicle;
+
 
 	}
 
@@ -106,28 +108,6 @@ public class Route extends TravelEntity implements IVisitable, ISubject {
 	}
 
 
-	/**
-	 * 
-	 * @param o
-	 */
-	public void attach(IObserver o) {
-		// TODO - implement Route.attach
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param o
-	 */
-	public void detach(IObserver o) {
-		// TODO - implement Route.detach
-		throw new UnsupportedOperationException();
-	}
-
-	public void notifyObs() {
-		// TODO - implement Route.notify
-		throw new UnsupportedOperationException();
-	}
 
 	/**
 	 * 
@@ -142,6 +122,6 @@ public class Route extends TravelEntity implements IVisitable, ISubject {
 
 	@Override
 	public void acceptVisitor(IVisitor v) {
-
+		v.visit(this);
 	}
 }

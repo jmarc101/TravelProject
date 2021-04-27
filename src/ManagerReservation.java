@@ -1,14 +1,22 @@
 import java.util.ArrayList;
 
-public class ManagerReservation implements EntityManager, IReservation, Iterable {
+public class ManagerReservation implements EntityManager, IReservation, Iterable, ISubject {
 
 	private ArrayList<Reservation> listReservations;
 	private ManagerRoute managerRoute;
+	private ArrayList<IObserver> obs;
 	private int reservationID = 1;
+	private static ManagerReservation instance;
 
-	public ManagerReservation() {
+
+	public static ManagerReservation getInstance() {
+		if (instance == null) instance = new ManagerReservation();
+		return instance;
+	}
+	private ManagerReservation() {
 
 		listReservations = new ArrayList<>();
+		obs = new ArrayList<>();
 		 managerRoute = ManagerRoute.getInstance();
 	}
 
@@ -17,7 +25,9 @@ public class ManagerReservation implements EntityManager, IReservation, Iterable
 	 * @param e
 	 */
 	public void insert(TravelEntity e) {
+
 		if (e instanceof Reservation) listReservations.add((Reservation) e);
+		notifyObs();
 	}
 
 	/**
@@ -34,6 +44,7 @@ public class ManagerReservation implements EntityManager, IReservation, Iterable
 		}
 		if (index == -1) return;
 		listReservations.set(index, reservation);
+		notifyObs();
 	}
 
 	/**
@@ -42,6 +53,7 @@ public class ManagerReservation implements EntityManager, IReservation, Iterable
 	 */
 	public void delete(String id) {
 		listReservations.removeIf(e -> e.getReservationID().equals(id));
+		notifyObs();
 	}
 
 	/**
@@ -112,6 +124,23 @@ public class ManagerReservation implements EntityManager, IReservation, Iterable
 			list.add(reservation);
 		}
 		return list;
+	}
+
+
+	public void attach(IObserver o) {
+		if (obs.contains(o)) return;
+		obs.add(o);
+	}
+
+
+	public void detach(IObserver o) {
+		obs.remove(o);
+	}
+
+	public void notifyObs() {
+		for (IObserver o : obs){
+			o.update();
+		}
 	}
 
 }

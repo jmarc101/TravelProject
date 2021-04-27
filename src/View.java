@@ -6,6 +6,7 @@ public class View implements IObserver {
     Scanner scan = new Scanner(System.in);
     Controller controller;
     User user;
+    boolean routeNeedUpdate = false;
 
 
     public View(Controller controller) {
@@ -32,7 +33,7 @@ public class View implements IObserver {
 
     public String displayMenu(User user) {
 
-            System.out.println("\n\n *** Travel Reservation Application ***\nPlease enter which type of access\n'admin'\n'client'\n'create user'");
+            System.out.println("\n\n *** Travel Reservation Application ***\nPlease enter which type of access\n'admin'\n'client'\n'create user'\n'exit'");
             return listen("\n");
     }
 
@@ -66,6 +67,15 @@ public class View implements IObserver {
 
     @Override
     public void update() {
+        routeNeedUpdate = true;
+    }
+
+    public boolean doRouteNeedUpdate() {
+        return routeNeedUpdate;
+    }
+
+    public void setRouteNeedUpdate(boolean routeNeedUpdate) {
+        this.routeNeedUpdate = routeNeedUpdate;
     }
 
     public User getUser() {

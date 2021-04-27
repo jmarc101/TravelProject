@@ -9,13 +9,13 @@ public interface IRoutes {
 	 * @param startHubID
 	 * @param endHubID
 	 */
-	ArrayList<Route> getRoutesByHub(String vehicleType, char section, String startHubID, String endHubID);
+	ArrayList<Route> getRoutesByHub(String vehicleType, String startHubID, String endHubID);
 
 	/**
 	 * 
 	 * @param date
 	 */
-	ArrayList<Route> getRoutesByDate(String vehicleType, char section, String date);
+	ArrayList<Route> getRoutesByDate(String vehicleType, String date);
 
 	ArrayList<Route> getAllRoutes();
 

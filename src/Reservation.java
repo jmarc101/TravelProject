@@ -8,6 +8,12 @@ public class Reservation extends TravelEntity {
 	private String seatID;
 	private double price;
 
+
+
+
+
+
+
 	public Reservation(String reservationID, String clientID, String routeID, String seatID, double price) {
 		this.reservationID = reservationID;
 		this.clientID = clientID;
