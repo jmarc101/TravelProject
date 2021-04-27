@@ -11,7 +11,6 @@ public class Route extends TravelEntity implements IVisitable{
 	private String dateDebut;
 	private String dateFin;
 	private Company company;
-	private double price;
 	private String duration;
 	private Vehicle vehicle;
 
@@ -24,11 +23,17 @@ public class Route extends TravelEntity implements IVisitable{
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.company = company;
-		this.price = price;
 		this.vehicle = vehicle;
 
 
 	}
+
+
+	@Override
+	public void acceptVisitor(IVisitor v) {
+		v.visit(this);
+	}
+
 
 
 	public String getRouteID() {
@@ -79,14 +84,6 @@ public class Route extends TravelEntity implements IVisitable{
 		this.company = company;
 	}
 
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
 	public String getDuration() {
 		return duration;
 	}
@@ -107,21 +104,6 @@ public class Route extends TravelEntity implements IVisitable{
 		return this.vehicle.getSeats();
 	}
 
-
-
-	/**
-	 * 
-	 * @param seatID
-	 */
-	public boolean reserveSeat(String seatID) {
-		// TODO - implement Route.reserveSeat
-		throw new UnsupportedOperationException();
-	}
-
-
-
-	@Override
-	public void acceptVisitor(IVisitor v) {
-		v.visit(this);
-	}
 }
+
+

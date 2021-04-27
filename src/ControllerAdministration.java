@@ -79,13 +79,6 @@ public class ControllerAdministration extends Controller {
 
 	}
 
-	/**
-	 * 
-	 * @param route
-	 */
-	public void visit(Route route) {
-		iVisitor.visit(route);
-	}
 
 	public void acceptVisitor(IVisitor visitor, IVisitable subject){
 		subject.acceptVisitor(visitor);

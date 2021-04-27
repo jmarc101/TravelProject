@@ -30,7 +30,10 @@ public class MainTravelSystem {
 
 			String usertype = view.displayMenu(user);
 			switch (usertype) {
-				case "exit" -> {run = false;}
+				case "exit" -> {
+					System.out.println("Thank you for using Travel System, see you soon!");
+					run = false;
+				}
 				case "admin" -> {
 					System.out.println("*** Admin Login ***\nDummy admin: Username = admin - Password = 1234");
 					do{	user = view.login();} while (user == null);
