@@ -45,8 +45,8 @@ public class ControllerClient extends Controller {
 		return true;
 	}
 
-	public void acceptVisitor(IVisitor visitor, IVisitable subject){
-		subject.acceptVisitor(visitor);
+	public void acceptVisitor(IVisitable subject){
+		subject.acceptVisitor(iVisitor);
 	}
 
 	/**

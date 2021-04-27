@@ -255,7 +255,7 @@ public class ViewClient extends View{
 
 
     public void getRoutes(Route route){
-        getControllerClient().acceptVisitor(getControllerClient().getIVisitor(), route);
+        getControllerClient().acceptVisitor(route);
         setRouteNeedUpdate(false);
     }
 

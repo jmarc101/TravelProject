@@ -14,7 +14,7 @@ public class CommandDeleteRoute extends Command {
 			return;
 		}
 
-		getController().acceptVisitor(getController().getiVisitor(), route);
+		getController().acceptVisitor(route);
 
 		String choice = getView().listen("\nAre you sure? (yes|no) ");
 		if (choice.equals("no")) {

@@ -80,8 +80,8 @@ public class ControllerAdministration extends Controller {
 	}
 
 
-	public void acceptVisitor(IVisitor visitor, IVisitable subject){
-		subject.acceptVisitor(visitor);
+	public void acceptVisitor(IVisitable subject){
+		subject.acceptVisitor(iVisitor);
 	}
 
 	public void attachObs(IObserver observer){

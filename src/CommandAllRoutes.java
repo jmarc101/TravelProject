@@ -11,19 +11,19 @@ public class CommandAllRoutes extends Command
         System.out.println("\n**** Airplane Routes ****");
         for (Route route : getController().getAllRoutes()) {
             if (route.getVehicle() instanceof VehicleAirplane) {
-                getController().acceptVisitor(getController().getiVisitor(), route);
+                getController().acceptVisitor(route);
             }
         }
         System.out.println("\n**** Train Routes ****");
         for (Route route : getController().getAllRoutes()) {
             if (route.getVehicle() instanceof VehicleTrain) {
-                getController().acceptVisitor(getController().getiVisitor(), route);
+                getController().acceptVisitor(route);
             }
         }
         System.out.println("\n**** Boat Routes ****");
         for (Route route : getController().getAllRoutes()) {
             if (route.getVehicle() instanceof VehicleBoat) {
-                getController().acceptVisitor(getController().getiVisitor(), route);
+                getController().acceptVisitor(route);
             }
         }
         getView().listen("\n <<<Press enter to go back to menu");
