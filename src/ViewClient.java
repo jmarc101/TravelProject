@@ -184,6 +184,7 @@ public class ViewClient extends View{
                 case "ocean view" -> type[1] = "O";
                 case "suite cabin" -> type[1] = "S";
             }
+            return type;
 
         }
 
@@ -241,9 +242,18 @@ public class ViewClient extends View{
 
     public void viewSeats(Route route, char section){
         ArrayList<Seat> seats = route.getSeats();
-
         String[] cols = {"Column 1|Seat|", "Column 2|Seat|", "Column 3|Seat|", "Column 4|Seat|",
                 "Column 5|Seat|", "Column 6|Seat|", "Column 7|Seat|", "Column 8|Seat|", "Column 9|Seat|", "Column 10|Seat|"};
+
+        if (route.getVehicle() instanceof VehicleBoat){
+            for (int i = 0; i < cols.length; i++) {
+                cols[i] = "Cabin "+ (i+1) + "| ";
+            }
+        }
+
+
+
+
 
         for (Seat seat: seats){
             for (int i = 1; i <= cols.length; i++) {
@@ -252,7 +262,7 @@ public class ViewClient extends View{
                 }
             }
         }
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 6; i++) {
             System.out.println(cols[i]);
         }
     }

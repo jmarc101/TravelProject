@@ -17,6 +17,8 @@ public abstract class Section extends TravelEntity {
 
 
 	private void createSeat(){
+
+
 		int numSeats = sectionClass.getMaxCapacity();
 		int numCol = 6;
 		int seatPerCol = numSeats / 6;
@@ -27,8 +29,8 @@ public abstract class Section extends TravelEntity {
 				addSeat(new SeatMedium(price , sectionClass.getId(), i, j));
 			}
 		}
-		for (int i = 0; i < extraSeat; i++) {
-			addSeat(new SeatMedium(price ,sectionClass.getId(),7,i));
+		for (int i = 1; i < extraSeat; i++) {
+			addSeat(new SeatMedium(price ,sectionClass.getId(),i,seatPerCol + 1));
 		}
 
 	}

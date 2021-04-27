@@ -5,7 +5,5 @@ public class ClassSuiteCabin extends Class {
 		setId('S');
 		setName("Suite Cabin");
 		setPriceModifier(.9);
-		setCabin(true);
-
 	}
 }

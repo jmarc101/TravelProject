@@ -5,7 +5,6 @@ public class ClassBusiness extends Class {
 		setId('A');
 		setName("Business");
 		setPriceModifier(.75);
-		setCabin(false);
 	}
 
 
