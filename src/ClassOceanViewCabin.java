@@ -5,6 +5,8 @@ public class ClassOceanViewCabin extends Class {
 		setId('O');
 		setName("Ocean View Cabin");
 		setPriceModifier(.75);
+		setCabin(true);
+
 	}
 
 }

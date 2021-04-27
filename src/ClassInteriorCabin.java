@@ -5,6 +5,8 @@ public class ClassInteriorCabin extends Class {
 		setId('I');
 		setName("Interior Cabin");
 		setPriceModifier(.5);
+		setCabin(true);
+
 	}
 
 

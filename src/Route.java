@@ -29,7 +29,6 @@ public class Route extends TravelEntity implements IVisitable, ISubject {
 	}
 
 
-
 	public String getRouteID() {
 		return routeID;
 	}

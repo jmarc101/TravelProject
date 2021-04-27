@@ -34,16 +34,15 @@ public class ViewAdmin extends View{
     @Override
     public String displayMenu(User user){
     this.user = user;
-        System.out.println("\n\nWelcome to Admin Control Panel\nPlease choose an options below\n");
-        System.out.println("--Route Options COMMANDS--\n'get route'\n'create route'\n'modify route'\n'delete route'");
-        System.out.println("--Company Options COMMANDS--\n'get company'\n'create company'\n'modify company'\n'delete company'");
-        System.out.println("--Hub options COMMANDS--\n'get hub'\n'create hub'\n'modify hub'\n'delete hub'\n\nVIEW ALL ROUTES: 'all routes'\nEXIT : '-1'");
+
 
         boolean run = true;
         String result = "";
         while (run) {
 
-            result = listen("\n*** Enter Admin Menu Choice (CRUD) ***\n");
+            menuChoices();
+
+            result = listen("");
 
             if (commands.containsKey(result)) commands.get(result).execute();
             else if (result.equals("-1")) run = false;
@@ -101,4 +100,10 @@ public class ViewAdmin extends View{
         commands.put(key,command);
     }
 
+    public void menuChoices(){
+        System.out.println("\n\nWelcome to Admin Control Panel\nPlease choose an options below\n");
+        System.out.println("'get route'    |  'create route'    |  'modify route'    |  'delete route'");
+        System.out.println("'get company'  |  'create company'  |  'modify company'  |  'delete company'");
+        System.out.println("'get hub'      |  'create hub'      |  'modify hub'      |  'delete hub'\n'all routes'\nexit : '-1'\n");
+    }
 }

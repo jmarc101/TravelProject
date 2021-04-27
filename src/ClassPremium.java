@@ -5,6 +5,8 @@ public class ClassPremium extends Class {
 		setId('P');
 		setName("Premium");
 		setPriceModifier(.6);
+		setCabin(false);
+
 	}
 
 }

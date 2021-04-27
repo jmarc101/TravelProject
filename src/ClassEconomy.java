@@ -5,6 +5,8 @@ public class ClassEconomy extends Class {
 		setId('E');
 		setName("Economy");
 		setPriceModifier(.5);
+		setCabin(false);
+
 	}
 
 }

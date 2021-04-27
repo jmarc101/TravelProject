@@ -64,7 +64,7 @@ public class ViewClient extends View{
     public void clientRouteView(){
         ArrayList<Route> routes = new ArrayList<>();
         String type = chooseVehicle();
-        String[] section = chooseSection();
+        String[] section = chooseSection(type);
         if (type.equals("-1") || section[1].equals("-1") ) return;
         String sectionName = section[0];
         char sectionID = section[1].charAt(0);
@@ -170,15 +170,32 @@ public class ViewClient extends View{
         return "-1";
     }
 
-    public String[] chooseSection(){
-        System.out.println("\n** Choose Section **\n'premium'\n'economy'\n'first'");
+    public String[] chooseSection(String vehicletype){
         String[] type = new String[2];
+        type[1] = "-1";
+        if (vehicletype.equals("boat")){
+            System.out.println("\n** Choose Section **\n'family cabin'\n'premium family'" +
+                    "\n'interior cabin'\n'ocean view'\n'suite cabin'");
+            type[0] = listen("\n");
+            switch (type[0]){
+                case "family cabin" -> type[1] = "F";
+                case "premium family" -> type[1] = "D";
+                case "interior cabin" -> type[1] = "I";
+                case "ocean view" -> type[1] = "O";
+                case "suite cabin" -> type[1] = "S";
+            }
+
+        }
+
+        System.out.println("\n** Choose Section **\n'premium'\n'economy'\n'business'\n'first'");
+
         type[0] = listen("\n");
         type[1] = "-1";
         switch (type[0]){
-            case "premium" -> {type[1] = "P";}
-            case "economy" -> {type[1] = "E";}
-            case "first" -> {type[1] = "F";}
+            case "premium" -> type[1] = "P";
+            case "economy" -> type[1] = "E";
+            case "first" -> type[1] = "F";
+            case "business" -> type[1] = "D";
         }
         return type;
     }

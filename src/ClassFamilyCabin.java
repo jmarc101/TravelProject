@@ -5,6 +5,8 @@ public class ClassFamilyCabin extends Class {
 		setId('F');
 		setName("Family Cabin");
 		setPriceModifier(.9);
+		setCabin(true);
+
 	}
 
 }

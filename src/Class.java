@@ -4,8 +4,17 @@ public abstract class Class {
 	private String name;
 	private double priceModifier;
 	private int maxCapacity;
+	private boolean cabin;
 
 	public Class(){};
+
+	public boolean isCabin() {
+		return cabin;
+	}
+
+	public void setCabin(boolean cabin) {
+		this.cabin = cabin;
+	}
 
 	public char getId() {
 		return id;

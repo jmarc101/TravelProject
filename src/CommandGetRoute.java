@@ -14,6 +14,7 @@ public class CommandGetRoute extends Command {
 			return;
 		}
 		getController().visit(route);
+		getView().listen("\n\nenter to continue");
 
 	}
 

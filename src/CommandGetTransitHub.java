@@ -14,7 +14,9 @@ public class CommandGetTransitHub extends Command {
 		}
 		System.out.println("***INFO***");
 		hub.toStrings();
-		System.out.println("");
+
+		getView().listen("\n\nenter to continue");
+
 	}
 
 	public void unexecute() {
