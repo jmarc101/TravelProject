@@ -1,4 +1,5 @@
 public class CommandDeleteCompany extends Command {
+	private Company previousCompany;
 
 	public CommandDeleteCompany(ControllerAdministration controller, ViewAdmin view) {
 		super(controller, view);
@@ -21,18 +22,18 @@ public class CommandDeleteCompany extends Command {
 			System.out.println("** Not erasing **\n");
 			return;
 		}
+		previousCompany = company;
 		getController().companyManager.delete(id);
 		System.out.printf("*** Data Erased ***");
 	}
 
 	public void unexecute() {
-		// TODO - implement DeleteCompanyCommand.unexecute
-		throw new UnsupportedOperationException();
+		getController().getCompanyManager().insert(previousCompany);
+		System.out.println("Undo Delete Company");
 	}
 
 	public boolean isUndoable() {
-		// TODO - implement DeleteCompanyCommand.isUndoable
-		throw new UnsupportedOperationException();
+		return true;
 	}
 
 }

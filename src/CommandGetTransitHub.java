@@ -20,13 +20,11 @@ public class CommandGetTransitHub extends Command {
 	}
 
 	public void unexecute() {
-		// TODO - implement getTransitHubCommand.unexecute
-		throw new UnsupportedOperationException();
+
 	}
 
 	public boolean isUndoable() {
-		// TODO - implement getTransitHubCommand.isUndoable
-		throw new UnsupportedOperationException();
+		return false;
 	}
 
 }

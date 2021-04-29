@@ -19,13 +19,11 @@ public class CommandGetRoute extends Command {
 	}
 
 	public void unexecute() {
-		// TODO - implement GetRouteCommand.unexecute
-		throw new UnsupportedOperationException();
+
 	}
 
 	public boolean isUndoable() {
-		// TODO - implement GetRouteCommand.isUndoable
-		throw new UnsupportedOperationException();
+		return false;
 	}
 
 }

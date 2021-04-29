@@ -1,4 +1,5 @@
 public class CommandDeleteTransitHub extends Command {
+	private TransitHub previousTransitHub;
 
 
 	public CommandDeleteTransitHub(ControllerAdministration controller, ViewAdmin view) {
@@ -22,18 +23,18 @@ public class CommandDeleteTransitHub extends Command {
 			System.out.println("** Not erasing **\n");
 			return;
 		}
+		previousTransitHub = hub;
 		getController().hubManager.delete(id);
 		System.out.printf("*** Data Erased ***\n");
 	}
 
 	public void unexecute() {
-		// TODO - implement DeleteTransitHubCommand.unexecute
-		throw new UnsupportedOperationException();
+		getController().getHubManager().insert(previousTransitHub);
+		System.out.println("Undo delete Transit Hub");
 	}
 
 	public boolean isUndoable() {
-		// TODO - implement DeleteTransitHubCommand.isUndoable
-		throw new UnsupportedOperationException();
+		return true;
 	}
 
 }

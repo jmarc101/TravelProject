@@ -1,4 +1,6 @@
 public class CommandModifyTransitHub extends Command {
+	private TransitHub previousHub;
+	private String newID;
 
 
 	public CommandModifyTransitHub(ControllerAdministration controller, ViewAdmin view) {
@@ -16,7 +18,9 @@ public class CommandModifyTransitHub extends Command {
 		System.out.println("***INFO***");
 		hub.toStrings();
 		System.out.println("\n\n *** ENTER NEW INFO ***");
-		hub.setHubID(getView().listen("New ID (length 3)  ").toUpperCase());
+		previousHub = hub;
+		newID = getView().listen("New ID (length 3)  ").toUpperCase();
+		hub.setHubID(newID);
 		hub.setTown(getView().listen("New town "));
 
 		System.out.println("\nInformation Update");
@@ -25,13 +29,13 @@ public class CommandModifyTransitHub extends Command {
 	}
 
 	public void unexecute() {
-		// TODO - implement ModifyTransitHubCommand.unexecute
-		throw new UnsupportedOperationException();
+		getController().getHubManager().delete(newID);
+		getController().getHubManager().insert(previousHub);
+		System.out.println("Undo last Modify Transit Hub");
 	}
 
 	public boolean isUndoable() {
-		// TODO - implement ModifyTransitHubCommand.isUndoable
-		throw new UnsupportedOperationException();
+		return true;
 	}
 
 }

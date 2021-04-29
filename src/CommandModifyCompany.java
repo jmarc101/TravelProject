@@ -1,4 +1,6 @@
 public class CommandModifyCompany extends Command {
+	private Company previousCompany;
+	private String newCompanyId;
 
 
 	public CommandModifyCompany(ControllerAdministration controller, ViewAdmin view) {
@@ -13,7 +15,9 @@ public class CommandModifyCompany extends Command {
 			System.out.println("Invalid ID");
 			return;
 		}
-		company.setCompanyID(getView().listen("\n New ID ").toUpperCase());
+		previousCompany = company;
+		newCompanyId = getView().listen("\n New ID ").toUpperCase();
+		company.setCompanyID(newCompanyId);
 		company.setName(getView().listen("New name "));
 		company.setHeadquarterAddress(getView().listen("new Address "));
 		company.setFarePrice(Double.parseDouble(getView().listen("new Fare Price ")));
@@ -21,13 +25,13 @@ public class CommandModifyCompany extends Command {
 	}
 
 	public void unexecute() {
-		// TODO - implement ModifyCompanyCommand.unexecute
-		throw new UnsupportedOperationException();
+		getController().getCompanyManager().delete(newCompanyId);
+		getController().getCompanyManager().insert(previousCompany);
+		System.out.println("Undo last Modify Company");
 	}
 
 	public boolean isUndoable() {
-		// TODO - implement ModifyCompanyCommand.isUndoable
-		throw new UnsupportedOperationException();
+		return true;
 	}
 
 }

@@ -5,12 +5,13 @@ public class ViewAdmin extends View{
     ControllerAdministration controllerAdministration;
     HashMap<String, Command> commands;
     User user;
+    CommandHistory commandHistory;
 
     public ViewAdmin(ControllerAdministration controller) {
         super(controller);
         controllerAdministration = controller;
         controllerAdministration.attachObs(this);
-
+        commandHistory = new CommandHistory();
         commands = new HashMap<>();
 
         addCommand("view all routes", new CommandAllRoutes(controllerAdministration, this));
@@ -46,10 +47,16 @@ public class ViewAdmin extends View{
 
             result = listen("");
 
-            if (commands.containsKey(result)) commands.get(result).execute();
+            if (commands.containsKey(result)) {
+                commands.get(result).execute();
+                if (commands.get(result).isUndoable()) commandHistory.push(commands.get(result));
+
+            }
             else if (result.equals("back")) {
                 run = false;
                 System.out.println("Going back");
+            }else if (result.equals("undo last command")) {
+                commandHistory.pop().unexecute();
             }
             else System.out.println("Invalid choice\nPlease choose again");
         }
@@ -109,7 +116,7 @@ public class ViewAdmin extends View{
         System.out.println("\n\nWelcome to Admin Control Panel\nPlease choose an options below\n");
         System.out.println("'get route'    |  'create route'    |  'modify route'    |  'delete route'");
         System.out.println("'get company'  |  'create company'  |  'modify company'  |  'delete company'");
-        System.out.println("'get hub'      |  'create hub'      |  'modify hub'      |  'delete hub'\n'view all routes'\n'back'\n");
+        System.out.println("'get hub'      |  'create hub'      |  'modify hub'      |  'delete hub'\n'view all routes'\n'undo last command'\n'back'\n");
     }
 
 

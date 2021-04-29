@@ -21,13 +21,11 @@ public class CommandGetCompany extends Command {
 	}
 
 	public void unexecute() {
-		// TODO - implement GetCompanyCommand.unexecute
-		throw new UnsupportedOperationException();
+
 	}
 
 	public boolean isUndoable() {
-		// TODO - implement GetCompanyCommand.isUndoable
-		throw new UnsupportedOperationException();
+		return false;
 	}
 
 }

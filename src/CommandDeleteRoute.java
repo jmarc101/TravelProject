@@ -1,4 +1,5 @@
 public class CommandDeleteRoute extends Command {
+	private Route previousRoute;
 
 
 	public CommandDeleteRoute(ControllerAdministration controller, ViewAdmin view) {
@@ -21,18 +22,18 @@ public class CommandDeleteRoute extends Command {
 			System.out.println("** Not erasing **\n");
 			return;
 		}
+		previousRoute = route;
 		getController().getRouteManager().delete(id);
 		System.out.printf("*** Data Erased ***");
 	}
 
 	public void unexecute() {
-		// TODO - implement DeleteRouteCommand.unexecute
-		throw new UnsupportedOperationException();
+		getController().getRouteManager().insert(previousRoute);
+		System.out.println("Undo delete Route");
 	}
 
 	public boolean isUndoable() {
-		// TODO - implement DeleteRouteCommand.isUndoable
-		throw new UnsupportedOperationException();
+		return true;
 	}
 
 }
